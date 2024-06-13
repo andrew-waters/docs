@@ -1,0 +1,198 @@
+openapi: 3.1.0
+info:
+  title: Ctrl Hub
+  version: 3.0.0
+servers:
+  - url: https://api.ctrl-hub.com
+security:
+  - bearerAuth: []
+paths:
+  "/v3/orgs/{org}/data-capture/forms":
+    get:
+      description: Returns all forms for an organisation that the caller has access to
+      parameters:
+        - $ref: "#/components/parameters/org"
+        - $ref: "#/components/parameters/limit"
+      responses:
+        "200":
+          $ref: "#/components/schemas/data-capture/forms/many"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+components:
+  responses:
+    notfound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: "404"
+                    message:
+                      type: string
+                      example: "You are trying to access a resource that does not exist."
+    throttled:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: "429"
+                    message:
+                      type: string
+                      example: "You have made too many requests and have been throttled."
+  parameters:
+    org:
+      name: org
+      in: path
+      description: the organisation name
+      schema:
+        type: string
+        example: ctrl-hub
+      required: true
+    limit:
+      name: limit
+      in: query
+      description: Limit the number of resources returned by the API
+      schema:
+        type: integer
+        default: 10
+      required: false
+  schemas:
+    meta:
+      type: object
+      properties:
+        counts:
+          type: object
+          properties:
+            limit:
+              type: integer
+              example: 10
+        page:
+          type: object
+          properties:
+            limit:
+              type: integer
+              example: 10
+            offset:
+              type: object
+              properties:
+                current:
+                  type: integer
+                  example: 20
+                next:
+                  type: integer
+                  example: 30
+                previous:
+                  type: integer
+                  example: 10
+    data-capture:
+      forms:
+        object:
+          type: object
+          properties:
+            type:
+              type: string
+              example: forms
+            id:
+              type: string
+              format: uuid
+              example: 92dbb844-8524-60bf-c12e-1eaf5c04
+            attributes:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My Form
+                description:
+                  type: string
+                  example: This is a form which captures lots of useful information
+                status:
+                  type: string
+                  example: published
+                  enum:
+                    - published
+                    - draft
+                    - hidden
+                    - archived
+            meta:
+              type: object
+              properties:
+                created_at:
+                  type: string
+                  example: 2024-06-13T08:28:17Z
+            relationships:
+              type: object
+              properties:
+                categories:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/data-capture/categories/relationships"
+            links:
+              type: object
+              properties:
+                self:
+                  type: string
+                  example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms/92dbb844-8524-60bf-c12e-1eaf5c04
+        many:
+          description: Forms response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/data-capture/forms/object"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=10
+      categories:
+        relationships:
+          type: object
+          properties:
+            type:
+              type: string
+              example: form_categories
+              enum:
+                - form_categories
+            id:
+              type: string
+              format: uuid
+              example: b60e2af5-6a84-0eb0-feaa-84384a94
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
