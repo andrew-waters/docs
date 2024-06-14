@@ -49,7 +49,17 @@
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/introduction",
+        "api-reference/useful"
+      ]
+    },
+    {
+      "group": "Organisations",
+      "pages": [
+        "api-reference/organisations/model",
+        "api-reference/organisations/get-all",
+        "api-reference/organisations/get-one",
+        "api-reference/organisations/create"
       ]
     },
     {

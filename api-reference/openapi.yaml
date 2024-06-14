@@ -7,15 +7,115 @@ servers:
 security:
   - bearerAuth: []
 paths:
+  "/v3/orgs":
+    get:
+      description: Returns all organisations that the caller has access to
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/organisationModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+    post:
+      description: Use this endpoint to create a new organisation. The owner of the organisation will be the caller who is making the API call.
+      requestBody:
+        $ref: "#/components/requestBodies/organisationCreate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/organisationModel"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{org}":
+    get:
+      description: Returns an organisation
+      parameters:
+        - $ref: "#/components/parameters/org"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/organisationModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/orgs/{org}/data-capture/forms":
     get:
       description: Returns all forms for an organisation that the caller has access to
       parameters:
         - $ref: "#/components/parameters/org"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
       responses:
         "200":
-          $ref: "#/components/schemas/data-capture/forms/many"
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/dataCaptureForm"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=10
+
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -62,7 +162,7 @@ components:
     org:
       name: org
       in: path
-      description: the organisation name
+      description: The ID of the organisation
       schema:
         type: string
         example: ctrl-hub
@@ -75,7 +175,112 @@ components:
         type: integer
         default: 10
       required: false
+    offset:
+      name: offset
+      in: query
+      description: Offset for resources returned by the API
+      schema:
+        type: integer
+        default: 0
+      required: false
+    sort:
+      name: sort
+      in: query
+      description: A field in the resource to sort results with. Not all attributes are supported, please see the Object Model for **sortable** fields.
+      schema:
+        type: string
+        default: created_at
+      required: false
+  requestBodies:
+    organisationCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: organisations
+                    description: The type of resource
+                    enum:
+                      - organisations
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The organisation name
+                      description:
+                        type: string
+                        example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
+                        description: A description for the organisation
   schemas:
+    organisationModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: organisations
+          description: The type of resource
+          enum:
+            - organisations
+        id:
+          type: string
+          format: uuid
+          description: The organisation ID
+          example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Ctrl Hub
+              description: "**Sortable**. The organisation name."
+            slug:
+              type: string
+              example: ctrl-hub
+              description: "**Sortable**. The organisation slug, which is used in requests for subresources."
+            description:
+              type: string
+              example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
+              description: A description for the organisation
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the organisation was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+            status:
+              type: string
+              example: active
+              enum:
+                - active
+                - suspended
+              description: "**Sortable**. The current status of the organisation"
+        relationships:
+          type: object
+          properties:
+            owners:
+              type: object
+              description: The id of users who are owners of the organisation
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/userRelationships"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721
     meta:
       type: object
       properties:
@@ -103,95 +308,91 @@ components:
                 previous:
                   type: integer
                   example: 10
-    data-capture:
-      forms:
-        object:
+    dataCaptureForm:
+      type: object
+      properties:
+        type:
+          type: string
+          example: forms
+          enum:
+            - forms
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 92dbb844-8524-60bf-c12e-1eaf5c04
+          description: The ID of the form
+        attributes:
           type: object
           properties:
-            type:
+            name:
               type: string
-              example: forms
-            id:
+              example: My Form
+              description: The name of the form
+            description:
               type: string
-              format: uuid
-              example: 92dbb844-8524-60bf-c12e-1eaf5c04
-            attributes:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: My Form
-                description:
-                  type: string
-                  example: This is a form which captures lots of useful information
-                status:
-                  type: string
-                  example: published
-                  enum:
-                    - published
-                    - draft
-                    - hidden
-                    - archived
-            meta:
-              type: object
-              properties:
-                created_at:
-                  type: string
-                  example: 2024-06-13T08:28:17Z
-            relationships:
-              type: object
-              properties:
-                categories:
-                  type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/data-capture/categories/relationships"
-            links:
-              type: object
-              properties:
-                self:
-                  type: string
-                  example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms/92dbb844-8524-60bf-c12e-1eaf5c04
-        many:
-          description: Forms response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/data-capture/forms/object"
-                  meta:
-                    $ref: "#/components/schemas/meta"
-                  links:
-                    type: object
-                    properties:
-                      current:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=20
-                      next:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=30
-                      previous:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms?limit=10&offset=10
-      categories:
+              example: This is a form which captures lots of useful information
+              description: Additional description of the form, for example, what it is used for
+            status:
+              type: string
+              example: published
+              enum:
+                - published
+                - draft
+                - hidden
+                - archived
+              description: The current status of the form
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T08:28:17Z
+              description: The time the form was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))
         relationships:
           type: object
           properties:
-            type:
+            categories:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/dataCaptureCategoryRelationships"
+        links:
+          type: object
+          properties:
+            self:
               type: string
-              example: form_categories
-              enum:
-                - form_categories
-            id:
-              type: string
-              format: uuid
-              example: b60e2af5-6a84-0eb0-feaa-84384a94
+              example: https://api.ctrl-hub.com/v3/orgs/ctrl-hub/data-capture/forms/92dbb844-8524-60bf-c12e-1eaf5c04
+    dataCaptureCategoryRelationships:
+      type: object
+      properties:
+        type:
+          type: string
+          example: form_categories
+          enum:
+            - form_categories
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: b60e2af5-6a84-0eb0-feaa-84384a94
+          description: The ID of the form category
+    userRelationships:
+      type: object
+      properties:
+        type:
+          type: string
+          example: users
+          enum:
+            - users
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: c9927007-a8e3-46bc-b507-7867b114bef5
+          description: The ID of the user
   securitySchemes:
     bearerAuth:
       type: http
