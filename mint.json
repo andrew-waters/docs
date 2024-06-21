@@ -59,6 +59,7 @@
         "api-reference/organisations/model",
         "api-reference/organisations/get-all",
         "api-reference/organisations/get-one",
+        "api-reference/organisations/update",
         "api-reference/organisations/create"
       ]
     },

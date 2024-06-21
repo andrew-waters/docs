@@ -81,6 +81,22 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+    patch:
+      description: Use this endpoint to update an organisation
+      requestBody:
+        $ref: "#/components/requestBodies/organisationUpdate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/organisationModel"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/orgs/{org}/data-capture/forms":
     get:
       description: Returns all forms for an organisation that the caller has access to
@@ -209,6 +225,38 @@ components:
                     description: The type of resource
                     enum:
                       - organisations
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The organisation name
+                      description:
+                        type: string
+                        example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
+                        description: A description for the organisation
+    organisationUpdate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: organisations
+                    description: The type of resource
+                    enum:
+                      - organisations
+                  id:
+                    type: string
+                    example: 1
+                    description: The ID of the resource
                   attributes:
                     type: object
                     properties:
