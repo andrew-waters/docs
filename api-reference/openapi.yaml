@@ -254,7 +254,7 @@ components:
                     enum:
                       - organisations
                   id:
-                    type: string
+                    type: uuid
                     example: 7e0c875a-fd47-401d-bd25-4278ed58d721
                     description: The ID of the resource
                   attributes:
