@@ -69,7 +69,15 @@
         {
           "group": "Forms",
           "pages": [
+            "api-reference/data-capture/forms/model",
             "api-reference/data-capture/forms/get"
+          ]
+        },
+        {
+          "group": "Form Categories",
+          "pages": [
+            "api-reference/data-capture/form-categories/model",
+            "api-reference/data-capture/form-categories/get"
           ]
         }
       ]
