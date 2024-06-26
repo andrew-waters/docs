@@ -364,6 +364,28 @@ components:
                 - active
                 - suspended
               description: "**Sortable**. The current status of the organisation"
+            counts: 
+              type: object
+              properties:
+                members:
+                  type: integer
+                  description: a count of members within the organisation - this is dummy data for now
+                projects:
+                  type: integer
+                  description: a count of projects within the organisation - this is dummy data for now
+                risk:
+                  type: object
+                  description: a count of risks
+                  properties:
+                    ok:
+                      type: integer
+                      description: a count of entities which have an "ok" risk status - this is dummy data for now
+                    at_risk:
+                      type: integer
+                      description: a count of entities which have an "at risk" risk status - this is dummy data for now
+                    attention:
+                      type: integer
+                      description: a count of entities which have an "attention" risk status - this is dummy data for now
         relationships:
           type: object
           properties:
