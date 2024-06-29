@@ -138,6 +138,26 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/forms/stats":
+    get:
+      description: Return submission statistics for this form over a given time period
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/timeCreatedAtSince"
+        - $ref: "#/components/parameters/timeCreatedAtUntil"
+        - $ref: "#/components/parameters/timeCreatedAtGranularity"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/dayStat"
   "/v3/orgs/{orgId}/data-capture/form-categories":
     get:
       description: Returns all form categories for an organisation
@@ -216,6 +236,32 @@ components:
                       type: string
                       example: "You have made too many requests and have been throttled."
   parameters:
+    timeCreatedAtSince:
+      name: filter[created_at.since]
+      in: query
+      description: The start time for the filter (in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format)
+      schema:
+        type: string
+        example: "2014-05-01T00:00:00Z"
+      required: true
+    timeCreatedAtUntil:
+      name: filter[created_at.until]
+      in: query
+      description: The end time for the filter (in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format)
+      schema:
+        type: string
+        example: "2014-07-01T00:00:00Z"
+      required: true
+    timeCreatedAtGranularity:
+      name: filter[created_at.granularity]
+      in: query
+      description: The granularity of the responses. At the moment, this is always _day_, regardless of the value passed
+      schema:
+        type: string
+        example: "day"
+        enum:
+          - day
+      required: false
     orgId:
       name: orgId
       in: path
@@ -364,7 +410,7 @@ components:
                 - active
                 - suspended
               description: "**Sortable**. The current status of the organisation"
-            counts: 
+            counts:
               type: object
               properties:
                 members:
@@ -430,6 +476,24 @@ components:
                 previous:
                   type: integer
                   example: 10
+    dayStat:
+      type: object
+      properties:
+        type:
+          type: string
+          example: daily_stats
+          enum:
+            - daily_stats
+          description: The resource type
+        attributes:
+          type: object
+          properties:
+            day:
+              type: string
+              example: "2024-06-28"
+            value:
+              type: integer
+              example: 245
     dataCaptureFormCategory:
       type: object
       properties:

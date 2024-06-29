@@ -1,0 +1,8 @@
+---
+title: 'Get Stats'
+openapi: 'GET /v3/orgs/{orgId}/data-capture/forms/stats'
+---
+
+This endpoint returns submission counts for this form within the created_at range that you specify in the filter.
+
+Calling this endpoint means you **must send both the since and until parameters** - we will not fill time if the bounds have not been specified.

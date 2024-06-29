@@ -55,13 +55,18 @@
       ]
     },
     {
-      "group": "Organisations",
+      "group": "Governance",
       "pages": [
-        "api-reference/organisations/model",
-        "api-reference/organisations/get-all",
-        "api-reference/organisations/get-one",
-        "api-reference/organisations/create",
-        "api-reference/organisations/update"
+        {
+          "group": "Organisations",
+          "pages": [
+            "api-reference/governance/organisations/model",
+            "api-reference/governance/organisations/get-all",
+            "api-reference/governance/organisations/get-one",
+            "api-reference/governance/organisations/create",
+            "api-reference/governance/organisations/update"
+          ]
+        }
       ]
     },
     {
@@ -71,7 +76,8 @@
           "group": "Forms",
           "pages": [
             "api-reference/data-capture/forms/model",
-            "api-reference/data-capture/forms/get"
+            "api-reference/data-capture/forms/get",
+            "api-reference/data-capture/forms/stats"
           ]
         },
         {
