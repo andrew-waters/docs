@@ -146,6 +146,7 @@ paths:
         - $ref: "#/components/parameters/timeCreatedAtSince"
         - $ref: "#/components/parameters/timeCreatedAtUntil"
         - $ref: "#/components/parameters/timeCreatedAtGranularity"
+        - $ref: "#/components/parameters/authorID"
       responses:
         "200":
           description: ""
@@ -236,6 +237,15 @@ components:
                       type: string
                       example: "You have made too many requests and have been throttled."
   parameters:
+    authorID:
+      name: filter[author.id]
+      in: query
+      description: The author of the submissions to return
+      schema:
+        type: string
+        format: uuid
+        example: f078b255-7ff4-4425-8322-8e57e4aa772d
+      required: false
     timeCreatedAtSince:
       name: filter[created_at.since]
       in: query
@@ -255,12 +265,16 @@ components:
     timeCreatedAtGranularity:
       name: filter[created_at.granularity]
       in: query
-      description: The granularity of the responses. At the moment, this is always _day_, regardless of the value passed
+      description: The granularity of the time buckets that we place the number of submissions into
       schema:
         type: string
         example: "day"
         enum:
+          - year
+          - month
           - day
+          - hour
+          - minute
       required: false
     orgId:
       name: orgId
