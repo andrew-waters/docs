@@ -159,6 +159,28 @@ paths:
                     type: array
                     items:
                       "$ref": "#/components/schemas/dayStat"
+                  meta:
+                    type: object
+                    properties:
+                      headlines:
+                        type: object
+                        properties:
+                          avg:
+                            type: object
+                            properties:
+                              per:
+                                type: string
+                                example: day
+                              value:
+                                type: number
+                                format: double
+                                example: 17.5
+                          sum:
+                            type: object
+                            properties:
+                              value:
+                                type: integer
+                                example: 245
   "/v3/orgs/{orgId}/data-capture/form-categories":
     get:
       description: Returns all form categories for an organisation
