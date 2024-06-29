@@ -495,19 +495,83 @@ components:
       properties:
         type:
           type: string
-          example: daily_stats
+          example: stats
           enum:
-            - daily_stats
+            - stats
           description: The resource type
         attributes:
           type: object
           properties:
-            day:
+            granularity:
               type: string
-              example: "2024-06-28"
+              example: "day"
+            time:
+              type: string
+              example: "2024-06-28T08:50"
+              description: The format of the time will change depending on the granularity. For example, `day` will output `2024-06-28` where as `year` will output `2024`. If you need more accuracy, it is in the `data.meta` field
             value:
               type: integer
               example: 245
+        meta:
+          type: object
+          properties:
+            time:
+              type: object
+              properties:
+                since:
+                  type: object
+                  properties:
+                    formatted:
+                      type: object
+                      properties:
+                        rfc3339:
+                          type: string
+                          example: "2024-06-28T08:50:00Z"
+                    parts:
+                      type: object
+                      properties:
+                        year:
+                          type: integer
+                          example: 2024
+                        month:
+                          type: integer
+                          example: 06
+                        day:
+                          type: integer
+                          example: 28
+                        hour:
+                          type: integer
+                          example: 08
+                        minute:
+                          type: integer
+                          example: 50
+                until:
+                  type: object
+                  properties:
+                    formatted:
+                      type: object
+                      properties:
+                        rfc3339:
+                          type: string
+                          example: "2024-06-28T08:51:00Z"
+                    parts:
+                      type: object
+                      properties:
+                        year:
+                          type: integer
+                          example: 2024
+                        month:
+                          type: integer
+                          example: 06
+                        day:
+                          type: integer
+                          example: 28
+                        hour:
+                          type: integer
+                          example: 08
+                        minute:
+                          type: integer
+                          example: 51
     dataCaptureFormCategory:
       type: object
       properties:
