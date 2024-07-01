@@ -165,12 +165,19 @@ paths:
                       headlines:
                         type: object
                         properties:
+                          slices:
+                            type: object
+                            properties:
+                              granularity:
+                                type: string
+                                example: day
+                              count:
+                                type: number
+                                format: integer
+                                example: 14
                           avg:
                             type: object
                             properties:
-                              per:
-                                type: string
-                                example: day
                               value:
                                 type: number
                                 format: double
