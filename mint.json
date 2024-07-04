@@ -95,17 +95,17 @@
         {
           "group": "Manufacturers",
           "pages": [
-            "api-reference/vehicles/manufacturers/model",
-            "api-reference/vehicles/manufacturers/get-all",
-            "api-reference/vehicles/manufacturers/get-one",
-            "api-reference/vehicles/manufacturers/get-models"
+            "api-reference/assets/vehicles/manufacturers/model",
+            "api-reference/assets/vehicles/manufacturers/get-all",
+            "api-reference/assets/vehicles/manufacturers/get-one",
+            "api-reference/assets/vehicles/manufacturers/get-models"
           ]
         },
         {
           "group": "Models",
           "pages": [
-            "api-reference/vehicles/models/model",
-            "api-reference/vehicles/models/get-all"
+            "api-reference/assets/vehicles/models/model",
+            "api-reference/assets/vehicles/models/get-all"
           ]
         }
       ]

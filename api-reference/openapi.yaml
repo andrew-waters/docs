@@ -227,7 +227,7 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/vehicles/manufacturers":
+  "/v3/assets/vehicles/manufacturers":
     get:
       description: Returns all manufacturers
       parameters:
@@ -253,18 +253,18 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/manufacturers?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/manufacturers?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/manufacturers?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers?limit=10&offset=10
         "404":
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/vehicles/manufacturers/{manufacturerId}":
+  "/v3/assets/vehicles/manufacturers/{manufacturerId}":
     get:
       description: Returns a manufacturer
       parameters:
@@ -285,7 +285,7 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/vehicles/manufacturers/{manufacturerId}/models":
+  "/v3/assets/vehicles/manufacturers/{manufacturerId}/models":
     get:
       description: Returns all models for a specific manufacturer
       parameters:
@@ -312,18 +312,18 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=10
         "404":
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/vehicles/models":
+  "/v3/assets/vehicles/models":
     get:
       description: Returns all models
       parameters:
@@ -349,13 +349,13 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/models?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/models?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/models?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/models?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/vehicles/models?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/models?limit=10&offset=10
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -873,7 +873,7 @@ components:
           properties:
             self:
               type: string
-              example: https://api.ctrl-hub.com/v3/vehicles/manufacturers/5852cf16-8ec8-4aba-809e-f8d828772c4e
+              example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers/5852cf16-8ec8-4aba-809e-f8d828772c4e
     modelModel:
       type: object
       properties:
@@ -905,7 +905,7 @@ components:
           properties:
             self:
               type: string
-              example: https://api.ctrl-hub.com/v3/vehicles/manufacturers/5852cf16-8ec8-4aba-809e-f8d828772c4e
+              example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers/5852cf16-8ec8-4aba-809e-f8d828772c4e
     userRelationships:
       type: object
       properties:
