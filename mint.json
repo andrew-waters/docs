@@ -88,6 +88,27 @@
           ]
         }
       ]
+    },
+    {
+      "group": "Vehicles",
+      "pages": [
+        {
+          "group": "Manufacturers",
+          "pages": [
+            "api-reference/vehicles/manufacturers/model",
+            "api-reference/vehicles/manufacturers/get-all",
+            "api-reference/vehicles/manufacturers/get-one",
+            "api-reference/vehicles/manufacturers/get-models"
+          ]
+        },
+        {
+          "group": "Models",
+          "pages": [
+            "api-reference/vehicles/models/model",
+            "api-reference/vehicles/models/get-all"
+          ]
+        }
+      ]
     }
   ],
   "footerSocials": {
