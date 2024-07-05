@@ -285,7 +285,7 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/assets/vehicles/manufacturers/{manufacturerId}/models":
+  "/v3/assets/vehicles/manufacturers/{manufacturerId}/relationships/models":
     get:
       description: Returns all models for a specific manufacturer
       parameters:
@@ -312,13 +312,13 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/relationships/models?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/relationships/models?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/models?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/relationships/models?limit=10&offset=10
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -900,6 +900,16 @@ components:
               format: uuid
               example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
               description: The ID of the manufacturer
+        relationships:
+          type: object
+          properties:
+            vehicle_manufacturer:
+              type: object
+              description: The id of users who are owners of the organisation
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/vehicleModelRelationships"
         links:
           type: object
           properties:
@@ -920,6 +930,20 @@ components:
           format: uuid
           example: c9927007-a8e3-46bc-b507-7867b114bef5
           description: The ID of the user
+    vehicleModelRelationships:
+      type: object
+      properties:
+        type:
+          type: string
+          example: vehicle_manufacturers
+          enum:
+            - vehicle_manufacturers
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: c9927007-a8e3-46bc-b507-7867b114bef5
+          description: The ID of the vehicle manufacturer
   securitySchemes:
     bearerAuth:
       type: http
