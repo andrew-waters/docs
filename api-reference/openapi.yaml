@@ -895,11 +895,6 @@ components:
               type: string
               example: 1 Series
               description: The name of the model
-            manufacturer:
-              type: string
-              format: uuid
-              example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
-              description: The ID of the manufacturer
         relationships:
           type: object
           properties:
