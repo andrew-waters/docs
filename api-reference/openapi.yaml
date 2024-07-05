@@ -227,6 +227,139 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/assets/vehicles/manufacturers":
+    get:
+      description: Returns all manufacturers
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/manufacturerModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/assets/vehicles/manufacturers/{manufacturerId}":
+    get:
+      description: Returns a manufacturer
+      parameters:
+        - $ref: "#/components/parameters/manufacturerId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/manufacturerModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/assets/vehicles/manufacturers/{manufacturerId}/relationships/models":
+    get:
+      description: Returns all models for a specific manufacturer
+      parameters:
+        - $ref: "#/components/parameters/manufacturerId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/modelModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/relationships/models?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/relationships/models?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturer/5852cf16-8ec8-4aba-809e-f8d828772c4e/relationships/models?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/assets/vehicles/models":
+    get:
+      description: Returns all models
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/modelModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/models?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/models?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/assets/vehicles/models?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
 components:
   responses:
     notfound:
@@ -312,6 +445,14 @@ components:
       schema:
         type: string
         example: ctrl-hub
+      required: true
+    manufacturerId:
+      name: manufacturerId
+      in: path
+      description: The ID of the manufacturer
+      schema:
+        type: string
+        example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
       required: true
     limit:
       name: limit
@@ -706,6 +847,70 @@ components:
           format: uuid
           example: b60e2af5-6a84-0eb0-feaa-84384a94
           description: The ID of the form category
+    manufacturerModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: manufacturer
+          enum:
+            - manufacturer
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+          description: The ID of the manufacturer
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: BMW
+              description: The name of the manufacturer
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    modelModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: model
+          enum:
+            - model
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: f99beb4c-9add-42d0-b94d-03a22506229e
+          description: The ID of the model
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: 1 Series
+              description: The name of the model
+        relationships:
+          type: object
+          properties:
+            vehicle_manufacturer:
+              type: object
+              description: The id of users who are owners of the organisation
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/vehicleModelRelationships"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/assets/vehicles/manufacturers/5852cf16-8ec8-4aba-809e-f8d828772c4e
     userRelationships:
       type: object
       properties:
@@ -720,6 +925,20 @@ components:
           format: uuid
           example: c9927007-a8e3-46bc-b507-7867b114bef5
           description: The ID of the user
+    vehicleModelRelationships:
+      type: object
+      properties:
+        type:
+          type: string
+          example: vehicle_manufacturers
+          enum:
+            - vehicle_manufacturers
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: c9927007-a8e3-46bc-b507-7867b114bef5
+          description: The ID of the vehicle manufacturer
   securitySchemes:
     bearerAuth:
       type: http
