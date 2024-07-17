@@ -36,23 +36,15 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction"
-      ]
+      "pages": ["introduction"]
     },
     {
       "group": "Concepts",
-      "pages": [
-        "concepts/about",
-        "concepts/submissions"
-      ]
+      "pages": ["concepts/about", "concepts/submissions"]
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction",
-        "api-reference/useful"
-      ]
+      "pages": ["api-reference/introduction", "api-reference/useful"]
     },
     {
       "group": "Governance",
@@ -65,6 +57,13 @@
             "api-reference/governance/organisations/get-one",
             "api-reference/governance/organisations/create",
             "api-reference/governance/organisations/update"
+          ]
+        },
+        {
+          "group": "Properties",
+          "pages": [
+            "api-reference/governance/properties/model",
+            "api-reference/governance/properties/get-one"
           ]
         }
       ]

@@ -227,6 +227,25 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/governance/properties/{uprn}":
+    get:
+      description: Returns a property by UPRN
+      parameters:
+        - $ref: "#/components/parameters/uprn"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/propertyModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/assets/vehicles/manufacturers":
     get:
       description: Returns all manufacturers
@@ -446,6 +465,14 @@ components:
         type: string
         example: ctrl-hub
       required: true
+    uprn:
+      name: uprn
+      in: path
+      description: The UPRN of the property
+      schema:
+        type: number
+        example: 10022999531
+      required: true
     manufacturerId:
       name: manufacturerId
       in: path
@@ -633,6 +660,152 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721
+    propertyModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: properties
+          description: The type of resource
+          enum:
+            - properties
+        id:
+          type: string
+          format: uuid
+          description: The property ID
+          example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+        attributes:
+          type: object
+          properties:
+            uprn:
+              type: number
+              example: 10022999531
+              description: The Unique Property Reference Number
+            address:
+              type: object
+              description: The property address
+              properties:
+                country:
+                  type: string
+                  example: United Kingdom
+                  description: The country of the property
+                department:
+                  type: string
+                  example: Finance
+                  description: The department of the organisation if this property is commercial
+                dependent_thoroughfare:
+                  type: string
+                  example: Dependent Thoroughfare Name
+                  description: The dependent thoroughfare of the property
+                description:
+                  type: string
+                  example: Saltmeadows Rd, Gateshead NE8 3AH
+                  description: A description of the property which is searchable via a typeahead
+                name:
+                  type: string
+                  example: Highway House
+                  description: The name of the property
+                number:
+                  type: string
+                  example: 1A
+                  description: The number of the property
+                organisation:
+                  type: string
+                  example: Ctrl Hub Limited
+                  description: The name of the organisation
+                pobox:
+                  type: string
+                  example: PO Box 123
+                  description: If the address has a POBox, it will be present here
+                post_town:
+                  type: string
+                  example: Gateshead
+                  description: The postal town of the property
+                postcode:
+                  type: string
+                  example: NE8 3AH
+                  description: The postcode of the property
+                thoroughfare:
+                  type: string
+                  example: Saltmeadows Rd
+                  description: The thoroughfare of the property
+            location:
+              type: object
+              description: The property location in latitude and longitude
+              properties:
+                coordinates:
+                  type: array
+                  example: [-1.587305, 54.966]
+                  items:
+                    type: number
+                    description: The coordinates of the property - these are always presented in longitude, latitude order
+                type:
+                  type: string
+                  example: Point
+                  description: The type of location
+            meter:
+              type: object
+              description: The meter details of the property
+              properties:
+                mprn:
+                  type: number
+                  example: 1515151
+                  description: The MPRN for the property
+            occupants:
+              type: array
+              description: The known occupants of the property. Note that occupants refers to individuals, and generally are only available when the property is residential and the occupant has specific PSR needs.
+              items:
+                type: object
+                properties:
+                  first_name:
+                    type: string
+                    example: Mark
+                    description: The first name of the occupant
+                  intials:
+                    type: string
+                    example: ML
+                    description: The intials of the occupant
+                  language:
+                    type: string
+                    example: ENG
+                    description: The language of the occupant
+                  surname:
+                    type: string
+                    example: Lisgo
+                    description: The surname of the occupant
+                  title:
+                    type: string
+                    example: Mr
+                    description: The title of the occupant
+                  vulnerable_customer:
+                    type: object
+                    description: The vulnerable customer details of the occupant
+                    properties:
+                      contact:
+                        type: object
+                        description: Contact details for the vulnerable customer
+                      priority:
+                        type: number
+                        example: 1
+                        description: The priority of the vulnerable customer
+                        enum:
+                          - 1
+                          - 2
+                          - 3
+                      disabilities:
+                        type: array
+                        description: The NeedsCode of the vulnerable customer. To refer to the specific need, please refer to the payload meta which contains a human readable description of the NeedsCode.
+                        items:
+                          type: number
+                          example: 19
+        meta:
+          type: object
+          properties:
+            needs_codes:
+              type: object
+              description: A key value pair of of the NeedsCodes which are associated with the property with the description
+              example: { "19": "Pregnancy/Families with young children < 6" }
+
     meta:
       type: object
       properties:
