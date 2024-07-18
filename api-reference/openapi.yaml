@@ -229,7 +229,7 @@ paths:
           $ref: "#/components/responses/throttled"
   "/v3/governance/properties/{uprn}":
     get:
-      description: Returns a property by UPRN
+      description: Find a property by UPRN
       parameters:
         - $ref: "#/components/parameters/uprn"
       responses:
@@ -242,6 +242,30 @@ paths:
                 properties:
                   data:
                     "$ref": "#/components/schemas/propertyModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/governance/properties":
+    get:
+      description: Finds properties
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/boundedBoxBottomLeft"
+        - $ref: "#/components/parameters/boundedBoxTopRight"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/propertyModel"
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -426,6 +450,22 @@ components:
         type: string
         format: uuid
         example: f078b255-7ff4-4425-8322-8e57e4aa772d
+      required: false
+    boundedBoxBottomLeft:
+      name: filter[location.box.bottom_left]
+      in: query
+      description: The bottom left corner of bounding box to filter by
+      schema:
+        type: string
+        example: "51.5074,0.1278"
+      required: false
+    boundedBoxTopRight:
+      name: filter[location.box.top_right]
+      in: query
+      description: The top right corner of bounding box to filter by
+      schema:
+        type: string
+        example: "51.6123,0.378"
       required: false
     timeCreatedAtSince:
       name: filter[created_at.since]

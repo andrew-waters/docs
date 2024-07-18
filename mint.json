@@ -63,6 +63,7 @@
           "group": "Properties",
           "pages": [
             "api-reference/governance/properties/model",
+            "api-reference/governance/properties/get-many",
             "api-reference/governance/properties/get-one"
           ]
         }
