@@ -6,7 +6,7 @@
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
-  "theme": "prism",
+  "theme": "quill",
   "colors": {
     "primary": "#051737",
     "light": "#2B66FF",
@@ -40,7 +40,21 @@
     },
     {
       "group": "Concepts",
-      "pages": ["concepts/about", "concepts/submissions"]
+      "pages": [
+        "concepts/about",
+        "concepts/",
+        {
+          "group": "Data Capture",
+          "pages": [
+            "concepts/data-capture/forms",
+            "concepts/data-capture/submissions"
+          ]
+        },
+        {
+          "group": "Governance",
+          "pages": ["concepts/governance/index", "concepts/governance/schemes"]
+        }
+      ]
     },
     {
       "group": "API Documentation",
