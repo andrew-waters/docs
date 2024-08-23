@@ -1,0 +1,59 @@
+---
+title: 'Reinstatements'
+icon: 'file'
+mode: "wide"
+---
+
+Reinstatement is the process involved in restoring a property, or street, to the condition it was in before any works were carried out. This can include the removal of temporary works, the repair of any damage caused, and the reinstatement of any services that were removed or altered during the works.
+
+There are different types of reinstatement:
+
+ - **Excavation**: this involves the reinstatement of the ground surface after excavation works have been carried out. This can include backfilling the excavation, compacting the soil, and reinstating any paving or surfacing that was removed.
+ - **Surface Layers**: this involves the reinstatement of the surface layers of a road or pavement after works have been carried out. This can include replacing the surface layer, repairing any damage caused, and ensuring that the surface is safe and suitable for use.
+
+## GSOP
+
+Reinstatement is an important part of any construction project, as it ensures that the site is safe and suitable for use once the works have been completed. It is also important for maintaining the appearance of the area and ensuring that any damage caused during the works is repaired.
+
+Regulators often define a standard for reinstatements, and failure to meet the standard results in compensation. For example, GSOP2 in the UK require that reinstatement work be completed within working 5 days for domestic customers and that time is shortened to 3 working days if the property is on the Priorty Services Register. These are commonly known as D+3 and D+5.
+
+Therefore, it is crucial to know the date and time at which the hole was opened, whether the property is on the PSR and whether the resinstatement has been completed when you need to look at organisational risk.
+
+By using the data from the form submissions, Ctrl Hub automatically calculate the deadline for reinstatement, combining PSR data with the location where the hole exists. Open excavations to the risk map and calculate the financial compensation for any delays. This allows you to ensure that all reinstatements are completed on time, to the required standard and without adversly affecting vulnerable customers.
+
+## Possible States
+
+Reinstatements can be either temporary (_interim_), _permanent_ or _complete_. They are usually carried out by "gangs" of black top and white top workers, who are responsible for the reinstatement of the road surface. Black top workers are responsible for the surface reinstatement, while white top workers are responsible for the paving.
+
+**Open** occurs when the hole is first opened, and the work has not yet been completed. This is the first stage of the reinstatement process.
+
+**Interim reinstatements** occur when a provider knows they will come back and apply finishes properly in the future. This can often happen when the materials required are hard to come by, or there is not enough stock to hand.
+
+<Note>
+Ctrl Hub does not consider interim reinstatements as a direct risk, because the work has been carried out. However, they will display as an incompletion mark on the work order and scheme until it has been made permanent.
+</Note>
+
+**Permanent reinstatements** occurs when the property is returned to the state it was in before the work commenced. It is considered final by the organisation responsible for the work.
+
+**Complete reinstatements** occur only after the Local Authority has inspected and approved the work. This is the final stage of the reinstatement process. This is usually done when the work order is considered ready to sign off on, as opposed to when the [operation](/concepts/governance/schemes#work-orders-permits-and-operations) is complete.
+
+## Trenches vs Holes
+
+When a hole is dug, it is usually referred to as a hole either the width or length exceed 10m. A hole is usually less than 10m2, while a trench is usually larger than 10m2.
+
+## Data Fields
+
+| Field               | Type            | Description
+| ------------------- | --------------- | -----------
+| `status`            | `enum(string)`  | The status of the reinstatement: `open`, `interim`, `permanent`, `complete`
+| `property_type`     | `enum(string)`  | Indicates whether the hole is on `private` or `public` property
+| `property_uprn`     | `number`        | The UPRN of the property
+| `property_psr`      | `boolean`       | Indicates whether the property is on the Priority Services Register
+| `date_open`         | `date`          | The date on which the hole was opened
+| `date_closed`       | `date`          | The date on which the hole was closed
+| `surface_position`  | `enum(string)`  | The position of the hole - `footway`, `carriageway`, `verge`, `footpath`, `pavement`, `road`, `cycleway`, `garden`, `drive`, `field`
+| `surface_location`  | `enum(string)`  | The location of the hole relative to the position - `outside`, `side_of`, `opposite`, `junction_of`, `rear_of`, `behind_gate`
+| `surface_material`  | `enum(string)`  | The material of the surface - `6mm_dbm`, `6mm_dbm_red`, `10mm_dbm`, `10mm_sma`, `14mm_sma`, `hra_red`, `10mm_dbm_red`, `10mm_sma_red`, `14mm_sma_red`, `concrete`, `mastic`, `mastic_red`, `sandcarpet`, `specialist_surface`, `resin_footway`, `asp_slab`, `modular_paving`, `block_paving`, `tactile_paving`, `york_stone`, `granite_setts`, `topsoil_and_seed`, `turf`, `unmade`, `slabs`, `reinforced_concrete`, `hra`
+| `hole_length`       | `number`        | The length of the hole in meters
+| `hole_width`        | `number`        | The width of the hole in meters
+| `hole_depth`        | `number`        | The depth of the hole in millimeters

@@ -47,7 +47,14 @@
           "group": "Data Capture",
           "pages": [
             "concepts/data-capture/forms",
-            "concepts/data-capture/submissions"
+            "concepts/data-capture/submissions",
+            {
+              "group": "Processors",
+              "pages": [
+                "concepts/data-capture/processors/overview",
+                "concepts/data-capture/processors/reinstatements"
+              ]
+            }
           ]
         },
         {
