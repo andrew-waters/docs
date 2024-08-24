@@ -4,6 +4,10 @@ icon: 'file'
 mode: "wide"
 ---
 
+<Tip>
+  View the [Reinstatement Model](/api-reference/operations/reinstatements/model) for more information on the data fields associated with reinstatements.
+</Tip>
+
 Reinstatement is the process involved in restoring a property, or street, to the condition it was in before any works were carried out. This can include the removal of temporary works, the repair of any damage caused, and the reinstatement of any services that were removed or altered during the works.
 
 There are different types of reinstatement:
@@ -11,7 +15,7 @@ There are different types of reinstatement:
  - **Excavation**: this involves the reinstatement of the ground surface after excavation works have been carried out. This can include backfilling the excavation, compacting the soil, and reinstating any paving or surfacing that was removed.
  - **Surface Layers**: this involves the reinstatement of the surface layers of a road or pavement after works have been carried out. This can include replacing the surface layer, repairing any damage caused, and ensuring that the surface is safe and suitable for use.
 
-## GSOP
+## GSOP (Guaranteed Standards of Performance)
 
 Reinstatement is an important part of any construction project, as it ensures that the site is safe and suitable for use once the works have been completed. It is also important for maintaining the appearance of the area and ensuring that any damage caused during the works is repaired.
 
@@ -27,20 +31,22 @@ Reinstatements can be either temporary (_interim_), _permanent_ or _complete_. T
 
 **Open** occurs when the hole is first opened, and the work has not yet been completed. This is the first stage of the reinstatement process.
 
-**Interim reinstatements** occur when a provider knows they will come back and apply finishes properly in the future. This can often happen when the materials required are hard to come by, or there is not enough stock to hand.
+**Interim** - occur when a provider knows they will come back and apply finishes properly in the future. This can often happen when the materials required are hard to come by, or there is not enough stock to hand.
 
 <Note>
 Ctrl Hub does not consider interim reinstatements as a direct risk, because the work has been carried out. However, they will display as an incompletion mark on the work order and scheme until it has been made permanent.
 </Note>
 
-**Permanent reinstatements** occurs when the property is returned to the state it was in before the work commenced. It is considered final by the organisation responsible for the work.
+**Permanent** - occurs when the property is returned to the state it was in before the work commenced. It is considered final by the organisation responsible for the work.
 
-**Complete reinstatements** occur only after the Local Authority has inspected and approved the work. This is the final stage of the reinstatement process. This is usually done when the work order is considered ready to sign off on, as opposed to when the [operation](/concepts/governance/schemes#work-orders-permits-and-operations) is complete.
+**Complete** - occur only after the Local Authority has inspected and approved the work. This is the final stage of the reinstatement process. This is usually done when the work order is considered ready to sign off on, as opposed to when the [operation](/concepts/governance/schemes#work-orders-permits-and-operations) is complete.
+
+<Tip>
+Ctrl Hub provide the ability to not only measure the volume of excavated material, but also the amount required to reinstate the hole. If you track this accurately, we plan to offer BOM functionality in the future which will give you a more accurate view of the costs of the operation.
+</Tip>
 
 ## Trenches vs Holes
 
-When a hole is dug, it is usually referred to as a hole either the width or length exceed 10m. A hole is usually less than 10m2, while a trench is usually larger than 10m2.
+When ground is dug, it is referred to as a **hole** unless either the width or length exceed 10m when it is referred to as a **trench**.
 
----
-
-View the [Reinstatement Model](/api-reference/operations/reinstatements/model) for more information on the data fields associated with reinstatements.
+The depth, which is measured in millimeters, does not impact whether it is classified as a hole or a trench.
