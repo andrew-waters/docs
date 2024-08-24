@@ -111,6 +111,20 @@
       ]
     },
     {
+      "group": "Operations",
+      "pages": [
+        {
+          "group": "Reinstatements",
+          "pages": [
+            "api-reference/operations/reinstatements/model",
+            "api-reference/operations/reinstatements/get-all",
+            "api-reference/operations/reinstatements/get-one",
+            "api-reference/operations/reinstatements/create"
+          ]
+        }
+      ]
+    },
+    {
       "group": "Assets",
       "pages": [
         {

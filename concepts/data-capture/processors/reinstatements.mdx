@@ -41,19 +41,6 @@ Ctrl Hub does not consider interim reinstatements as a direct risk, because the 
 
 When a hole is dug, it is usually referred to as a hole either the width or length exceed 10m. A hole is usually less than 10m2, while a trench is usually larger than 10m2.
 
-## Data Fields
+---
 
-| Field               | Type            | Description
-| ------------------- | --------------- | -----------
-| `status`            | `enum(string)`  | The status of the reinstatement: `open`, `interim`, `permanent`, `complete`
-| `property_type`     | `enum(string)`  | Indicates whether the hole is on `private` or `public` property
-| `property_uprn`     | `number`        | The UPRN of the property
-| `property_psr`      | `boolean`       | Indicates whether the property is on the Priority Services Register
-| `date_open`         | `date`          | The date on which the hole was opened
-| `date_closed`       | `date`          | The date on which the hole was closed
-| `surface_position`  | `enum(string)`  | The position of the hole - `footway`, `carriageway`, `verge`, `footpath`, `pavement`, `road`, `cycleway`, `garden`, `drive`, `field`
-| `surface_location`  | `enum(string)`  | The location of the hole relative to the position - `outside`, `side_of`, `opposite`, `junction_of`, `rear_of`, `behind_gate`
-| `surface_material`  | `enum(string)`  | The material of the surface - `6mm_dbm`, `6mm_dbm_red`, `10mm_dbm`, `10mm_sma`, `14mm_sma`, `hra_red`, `10mm_dbm_red`, `10mm_sma_red`, `14mm_sma_red`, `concrete`, `mastic`, `mastic_red`, `sandcarpet`, `specialist_surface`, `resin_footway`, `asp_slab`, `modular_paving`, `block_paving`, `tactile_paving`, `york_stone`, `granite_setts`, `topsoil_and_seed`, `turf`, `unmade`, `slabs`, `reinforced_concrete`, `hra`
-| `surface_length`       | `number`        | The length of the hole in meters
-| `surface_width`        | `number`        | The width of the hole in meters
-| `surface_depth`        | `number`        | The depth of the hole in millimeters
+View the [Reinstatement Model](/api-reference/operations/reinstatements/model) for more information on the data fields associated with reinstatements.

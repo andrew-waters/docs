@@ -227,6 +227,84 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/operations/reinstatements":
+    get:
+      description: Returns all reinstatements for an organisation
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/reinstatementModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+    post:
+      description: Create a reinstatement for an organisation
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  "$ref": "#/components/schemas/reinstatementModel"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    "$ref": "#/components/schemas/reinstatementModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/operations/reinstatements/{id}":
+    get:
+      description: Returns a specific reinstatements for an organisation
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    "$ref": "#/components/schemas/reinstatementModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/governance/properties/{uprn}":
     get:
       description: Find a property by UPRN
@@ -700,6 +778,137 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721
+    reinstatementModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: reinstatements
+          description: The type of resource
+          enum:
+            - reinstatements
+        id:
+          type: string
+          format: uuid
+          description: The reinstatement ID
+          example: d15d856d-ad88-489d-a263-24fb2427395b
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+              example: interim
+              description: The status of the reinstatement
+              enum:
+                - open
+                - interim
+                - permanent
+                - complete
+            date_opened:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: The date the reinstatement was opened ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))
+            date_closed:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: The date the reinstatement was closed ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))
+            property_type:
+              type: string
+              example: private
+              description: The type of property the resintatement is for
+              enum:
+                - private
+                - public
+            property_uprn:
+              type: number
+              example: 10022999531
+              description: The Unique Property Reference Number
+            property_psr:
+              type: boolean
+              example: true
+              description: Whether the property is on the PSR or not
+            surface_position:
+              type: string
+              example: footpath
+              description: The surface position of the reinstatement
+              enum:
+                - footway
+                - carriageway
+                - verge
+                - footpath
+                - pavement
+                - road
+                - cycleway
+                - garden
+                - drive
+                - field
+            surface_location:
+              type: string
+              example: outside
+              description: The surface location of the reinstatement
+              enum:
+                - outside
+                - side_of
+                - opposite
+                - junction_of
+                - rear_of
+                - behind_gate
+            surface_material:
+              type: string
+              example: concrete
+              description: The surface material of the reinstatement
+              enum:
+                - 6mm_dbm
+                - 6mm_dbm_red
+                - 10mm_dbm
+                - 10mm_sma
+                - 14mm_sma
+                - hra_red
+                - 10mm_dbm_red
+                - 10mm_sma_red
+                - 14mm_sma_red
+                - concrete
+                - mastic
+                - mastic_red
+                - sandcarpet
+                - specialist_surface
+                - resin_footway
+                - asp_slab
+                - modular_paving
+                - block_paving
+                - tactile_paving
+                - york_stone
+                - granite_setts
+                - topsoil_and_seed
+                - turf
+                - unmade
+                - slabs
+                - reinforced_concrete
+                - hra
+            opened_length:
+              type: number
+              example: 8.2
+              description: The length of the reinstatement when opened (in meters)
+            opened_width:
+              type: number
+              example: 2.3
+              description: The width of the reinstatement when opened (in meters)
+            opened_depth:
+              type: number
+              example: 80
+              description: The depth of the reinstatement when opened (in millimeters)
+            reinstated_length:
+              type: number
+              example: 8.2
+              description: The length of the reinstatement when closed (in meters)
+            reinstated_width:
+              type: number
+              example: 2.3
+              description: The width of the reinstatement when closed (in meters)
+            reinstated_depth:
+              type: number
+              example: 80
+              description: The depth of the reinstatement when closed (in millimeters)
     propertyModel:
       type: object
       properties:
