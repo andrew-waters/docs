@@ -48,14 +48,12 @@
           "pages": [
             "concepts/data-capture/forms",
             "concepts/data-capture/submissions",
-            {
-              "group": "Processors",
-              "pages": [
-                "concepts/data-capture/processors/overview",
-                "concepts/data-capture/processors/reinstatements"
-              ]
-            }
+            "concepts/data-capture/processors"
           ]
+        },
+        {
+          "group": "Operations",
+          "pages": ["concepts/operations/reinstatements"]
         },
         {
           "group": "Governance",
