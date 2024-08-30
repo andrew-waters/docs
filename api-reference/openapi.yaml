@@ -481,6 +481,228 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/governance/schemes":
+    get:
+      description: Returns all schemes
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/schemeModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/governance/schemes/{schemeId}":
+    get: 
+      description: Returns a scheme
+      parameters:
+        - $ref: "#/components/parameters/schemeId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/schemeModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+    put:
+      description: Use this endpoint to update a scheme
+      parameters:
+        - $ref: "#/components/parameters/schemeId"
+      requestBody:
+        $ref: "#/components/requestBodies/schemeUpdate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/schemeModel"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/governance/work-orders":
+    get:
+      description: Returns all work orders
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/schemeModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/work-orders?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/work-orders?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/work-orders?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/governance/work-orders/{workOrderId}":
+    get: 
+      description: Returns a scheme
+      parameters:
+        - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/workOrderModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+    put:
+      description: Use this endpoint to update a work order
+      parameters:
+        - $ref: "#/components/parameters/workOrderId"
+      requestBody:
+        $ref: "#/components/requestBodies/workOrderUpdate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/workOrderModel"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/governance/operations":
+    get:
+      description: Returns all operations
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/operationModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/operations?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/operations?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/operations?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/governance/operations/{operationId}":
+    get: 
+      description: Returns an operation
+      parameters:
+        - $ref: "#/components/parameters/operationId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/operationModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+    put:
+      description: Use this endpoint to update an operation
+      parameters:
+        - $ref: "#/components/parameters/operationId"
+      requestBody:
+        $ref: "#/components/requestBodies/operationUpdate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/operationModel"
+        "429":
+          $ref: "#/components/responses/throttled"
 components:
   responses:
     notfound:
@@ -599,6 +821,30 @@ components:
         type: string
         example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
       required: true
+    schemeId:
+      name: schemeId
+      in: path
+      description: The ID of the scheme
+      schema:
+        type: string
+        example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
+    workOrderId:
+      name: workOrderId
+      in: path
+      description: The ID of the work order
+      schema:
+        type: string
+        example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
+    operationId:
+      name: operationId
+      in: path
+      description: The ID of the operation
+      schema:
+        type: string
+        example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
     limit:
       name: limit
       in: query
@@ -689,6 +935,74 @@ components:
                         type: string
                         example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
                         description: A description for the organisation
+                    required:
+                      - name
+                      - description
+                required:
+                  - type
+                  - id
+    workOrderCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: work_orders
+                    description: The type of resource
+                    enum:
+                      - work_orders
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The work order name
+                      description:
+                        type: string
+                        description: A description for the work order
+                    required:
+                      - name
+                required:
+                  - type
+    workOrderUpdate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: work_orders
+                    description: The type of resource
+                    enum:
+                      - work_orders
+                  id:
+                    type: string
+                    format: uuid
+                    example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+                    description: The ID of the resource
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The work order name
+                      description:
+                        type: string
+                        description: A description for the work order
                     required:
                       - name
                       - description
@@ -1361,6 +1675,138 @@ components:
           format: uuid
           example: c9927007-a8e3-46bc-b507-7867b114bef5
           description: The ID of the vehicle manufacturer
+    schemeModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: schemes
+          enum:
+            - schemes
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+          description: The ID of the schemes
+        attributes:
+          type: object
+          properties:
+            label:
+              type: string
+              description: The label of the schemes
+            name:
+              type: string
+              description: The name of the schemes
+            code:
+              type: string
+              description: The code of the schemes
+            description:
+              type: string
+              description: The description of the schemes
+            status:
+              type: string
+              description: The status of the schemes
+            start_date:
+              type: string
+              description: The start date of the schemes
+            end_date:
+              type: string
+              description: The end date of the schemes
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    workOrderModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: work_orders
+          enum:
+            - work_orders
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+          description: The ID of the work orders
+        attributes:
+          type: object
+          properties:
+            label:
+              type: string
+              description: The label of the work orders
+            name:
+              type: string
+              description: The name of the work orders
+            code:
+              type: string
+              description: The code of the work orders
+            description:
+              type: string
+              description: The description of the work orders
+            status:
+              type: string
+              description: The status of the work orders
+            start_date:
+              type: string
+              description: The start date of the work orders
+            end_date:
+              type: string
+              description: The end date of the work orders
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/governance/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    operationModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: operation
+          enum:
+            - operation
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+          description: The ID of the operation
+        attributes:
+          type: object
+          properties:
+            label:
+              type: string
+              description: The label of the operation
+            name:
+              type: string
+              description: The name of the operation
+            code:
+              type: string
+              description: The code of the operation
+            description:
+              type: string
+              description: The description of the operation
+            status:
+              type: string
+              description: The status of the operation
+            start_date:
+              type: string
+              description: The start date of the operation
+            end_date:
+              type: string
+              description: The end date of the operation
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/governance/operations/5852cf16-8ec8-4aba-809e-f8d828772c4e
   securitySchemes:
     bearerAuth:
       type: http
