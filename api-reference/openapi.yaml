@@ -481,10 +481,11 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/governance/schemes":
+  "/v3/orgs/{orgId}/governance/schemes":
     get:
       description: Returns all schemes
       parameters:
+        - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/sort"
@@ -518,10 +519,11 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/governance/schemes/{schemeId}":
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}":
     get:
       description: Returns a scheme
       parameters:
+        - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/schemeId"
       responses:
         "200":
@@ -537,10 +539,11 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/governance/work-orders":
+  "/v3/orgs/{orgId}/governance/work-orders":
     get:
       description: Returns all work orders
       parameters:
+        - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/sort"
@@ -574,10 +577,11 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/governance/work-orders/{workOrderId}":
+  "/v3/orgs/{orgId}/governance/work-orders/{workOrderId}":
     get:
       description: Returns a scheme
       parameters:
+        - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/workOrderId"
       responses:
         "200":
@@ -593,10 +597,11 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/governance/operations":
+  "/v3/orgs/{orgId}/governance/operations":
     get:
       description: Returns all operations
       parameters:
+        - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/sort"
@@ -630,10 +635,11 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/governance/operations/{operationId}":
+  "/v3/orgs/{orgId}/governance/operations/{operationId}":
     get:
       description: Returns an operation
       parameters:
+        - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/operationId"
       responses:
         "200":
