@@ -1871,54 +1871,10 @@ components:
                 Plant: EEIOM
                 Scheme WBS: "111222"
                 Z Number: "Z01/123456"
-            address:
-              type: object
-              description: The property address
-              properties:
-                country:
-                  type: string
-                  example: United Kingdom
-                  description: The country of the property
-                department:
-                  type: string
-                  example: Finance
-                  description: The department of the organisation if this property is commercial
-                dependent_thoroughfare:
-                  type: string
-                  example: Dependent Thoroughfare Name
-                  description: The dependent thoroughfare of the property
-                description:
-                  type: string
-                  example: Saltmeadows Rd, Gateshead NE8 3AH
-                  description: A description of the property which is searchable via a typeahead
-                name:
-                  type: string
-                  example: Highway House
-                  description: The name of the property
-                number:
-                  type: string
-                  example: 1A
-                  description: The number of the property
-                organisation:
-                  type: string
-                  example: Ctrl Hub Limited
-                  description: The name of the organisation
-                pobox:
-                  type: string
-                  example: PO Box 123
-                  description: If the address has a POBox, it will be present here
-                post_town:
-                  type: string
-                  example: Gateshead
-                  description: The postal town of the property
-                postcode:
-                  type: string
-                  example: NE8 3AH
-                  description: The postcode of the property
-                thoroughfare:
-                  type: string
-                  example: Saltmeadows Rd
-                  description: The thoroughfare of the property
+            property_id:
+              type: string
+              description: The property ID of the work orders
+              example: 7e0c875a-fd47-401d-bd25-4278ed58d721
         links:
           type: object
           properties:
