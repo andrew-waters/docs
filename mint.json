@@ -91,9 +91,7 @@
           "pages": [
             "api-reference/governance/schemes/model",
             "api-reference/governance/schemes/get-all",
-            "api-reference/governance/schemes/get-one",
-            "api-reference/governance/schemes/create",
-            "api-reference/governance/schemes/update"
+            "api-reference/governance/schemes/get-one"
           ]
         },
         {
@@ -101,19 +99,15 @@
           "pages": [
             "api-reference/governance/work-orders/model",
             "api-reference/governance/work-orders/get-all",
-            "api-reference/governance/work-orders/get-one",
-            "api-reference/governance/work-orders/create",
-            "api-reference/governance/work-orders/update"
+            "api-reference/governance/work-orders/get-one"
           ]
         },
-        { 
+        {
           "group": "Operations",
           "pages": [
             "api-reference/governance/operations/model",
             "api-reference/governance/operations/get-all",
-            "api-reference/governance/operations/get-one",
-            "api-reference/governance/operations/create",
-            "api-reference/governance/operations/update"
+            "api-reference/governance/operations/get-one"
           ]
         }
       ]

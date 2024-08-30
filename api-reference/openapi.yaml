@@ -518,24 +518,8 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-    post:
-      description: Use this endpoint to create a new scheme.
-      requestBody:
-        $ref: "#/components/requestBodies/schemeCreate"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/schemeModel"
-        "429":
-          $ref: "#/components/responses/throttled"
   "/v3/governance/schemes/{schemeId}":
-    get: 
+    get:
       description: Returns a scheme
       parameters:
         - $ref: "#/components/parameters/schemeId"
@@ -551,24 +535,6 @@ paths:
                     "$ref": "#/components/schemas/schemeModel"
         "404":
           $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-    put:
-      description: Use this endpoint to update a scheme
-      parameters:
-        - $ref: "#/components/parameters/schemeId"
-      requestBody:
-        $ref: "#/components/requestBodies/schemeUpdate"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/schemeModel"
         "429":
           $ref: "#/components/responses/throttled"
   "/v3/governance/work-orders":
@@ -608,22 +574,8 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-    post:
-      description: Use this endpoint to create a new work order.
-      requestBody:
-        $ref: "#/components/requestBodies/workOrderCreate"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/workOrderModel"
   "/v3/governance/work-orders/{workOrderId}":
-    get: 
+    get:
       description: Returns a scheme
       parameters:
         - $ref: "#/components/parameters/workOrderId"
@@ -639,24 +591,6 @@ paths:
                     "$ref": "#/components/schemas/workOrderModel"
         "404":
           $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-    put:
-      description: Use this endpoint to update a work order
-      parameters:
-        - $ref: "#/components/parameters/workOrderId"
-      requestBody:
-        $ref: "#/components/requestBodies/workOrderUpdate"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/workOrderModel"
         "429":
           $ref: "#/components/responses/throttled"
   "/v3/governance/operations":
@@ -696,22 +630,8 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-    post:
-      description: Use this endpoint to create a new operation.
-      requestBody:
-        $ref: "#/components/requestBodies/operationCreate"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/operationModel"
   "/v3/governance/operations/{operationId}":
-    get: 
+    get:
       description: Returns an operation
       parameters:
         - $ref: "#/components/parameters/operationId"
@@ -727,24 +647,6 @@ paths:
                     "$ref": "#/components/schemas/operationModel"
         "404":
           $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-    put:
-      description: Use this endpoint to update an operation
-      parameters:
-        - $ref: "#/components/parameters/operationId"
-      requestBody:
-        $ref: "#/components/requestBodies/operationUpdate"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/operationModel"
         "429":
           $ref: "#/components/responses/throttled"
 components:
