@@ -1009,6 +1009,142 @@ components:
                 required:
                   - type
                   - id
+    schemeCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: schemes
+                    description: The type of resource
+                    enum:
+                      - schemes
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The scheme name
+                      description:
+                        type: string
+                        description: A description for the scheme
+                    required:
+                      - name
+                required:
+                  - type
+    schemeUpdate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: schemes
+                    description: The type of resource
+                    enum:
+                      - schemes
+                  id:
+                    type: string
+                    format: uuid
+                    example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+                    description: The ID of the resource
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The scheme name
+                      description:
+                        type: string
+                        description: A description for the scheme
+                    required:
+                      - name
+                      - description
+                required:
+                  - type
+                  - id
+    operationCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: operations
+                    description: The type of resource
+                    enum:
+                      - operations
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The operation name
+                      description:
+                        type: string
+                        description: A description for the operation
+                    required:
+                      - name
+                required:
+                  - type
+    operationUpdate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: operations
+                    description: The type of resource
+                    enum:
+                      - operations
+                  id:
+                    type: string
+                    format: uuid
+                    example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+                    description: The ID of the resource
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The operation name
+                      description:
+                        type: string
+                        description: A description for the operation
+                    required:
+                      - name
+                      - description
+                required:
+                  - type
+                  - id
   schemas:
     organisationModel:
       type: object
