@@ -518,6 +518,22 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+    post:
+      description: Use this endpoint to create a new scheme.
+      requestBody:
+        $ref: "#/components/requestBodies/schemeCreate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/schemeModel"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/governance/schemes/{schemeId}":
     get: 
       description: Returns a scheme
@@ -592,6 +608,20 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+    post:
+      description: Use this endpoint to create a new work order.
+      requestBody:
+        $ref: "#/components/requestBodies/workOrderCreate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/workOrderModel"
   "/v3/governance/work-orders/{workOrderId}":
     get: 
       description: Returns a scheme
@@ -666,6 +696,20 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+    post:
+      description: Use this endpoint to create a new operation.
+      requestBody:
+        $ref: "#/components/requestBodies/operationCreate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/operationModel"
   "/v3/governance/operations/{operationId}":
     get: 
       description: Returns an operation
