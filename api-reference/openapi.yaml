@@ -1907,24 +1907,38 @@ components:
             label:
               type: string
               description: The label of the operation
+              example: Fake Lane, Newcastle
             name:
               type: string
               description: The name of the operation
+              example: IMGA100000
             code:
               type: string
               description: The code of the operation
+              example: CODE001
             description:
               type: string
               description: The description of the operation
+              example: DESC-123456
             status:
               type: string
               description: The status of the operation
+              example: active
             start_date:
               type: string
               description: The start date of the operation
+              example: 2024-06-13T07:15:23.000Z
             end_date:
               type: string
               description: The end date of the operation
+              example: 2024-08-13T07:15:23.000Z
+            labels:
+              type: object
+              description: Key-value pairs of labels related to the operation
+              additionalProperties:
+                type: string
+              example:
+                Order Number: AA123
         links:
           type: object
           properties:
