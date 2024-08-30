@@ -1776,25 +1776,45 @@ components:
           properties:
             label:
               type: string
-              description: The label of the schemes
+              description: The label of the scheme
+              example: Fake Lane, Newcastle
             name:
               type: string
-              description: The name of the schemes
+              description: The name of the scheme
+              example: IMGA100000
             code:
               type: string
-              description: The code of the schemes
+              description: The code of the scheme
+              example: CODE001
             description:
               type: string
-              description: The description of the schemes
+              description: The description of the scheme
+              example: DESC-123456
             status:
               type: string
-              description: The status of the schemes
+              description: The status of the scheme
+              example: active
             start_date:
               type: string
-              description: The start date of the schemes
+              description: The start date of the scheme
+              example: 2024-06-13T07:15:23.000Z
             end_date:
               type: string
-              description: The end date of the schemes
+              description: The end date of the scheme
+              example: 2024-08-13T07:15:23.000Z
+            duration_days:
+              type: integer
+              description: The duration of the scheme in days
+              example: 61
+            labels:
+              type: object
+              description: Key-value pairs of labels related to the scheme
+              additionalProperties:
+                type: string
+              example:
+                Network: EEIOM
+                Scheme WBS: "111222"
+                Z Number: "Z01/123456"
         links:
           type: object
           properties:
