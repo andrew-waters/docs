@@ -555,7 +555,7 @@ paths:
                   data:
                     type: array
                     items:
-                      "$ref": "#/components/schemas/schemeModel"
+                      "$ref": "#/components/schemas/workOrderModel"
                   meta:
                     $ref: "#/components/schemas/meta"
                   links:
@@ -1802,10 +1802,6 @@ components:
               type: string
               description: The end date of the scheme
               example: 2024-08-13T07:15:23.000Z
-            duration_days:
-              type: integer
-              description: The duration of the scheme in days
-              example: 61
             labels:
               type: object
               description: Key-value pairs of labels related to the scheme
@@ -1841,24 +1837,88 @@ components:
             label:
               type: string
               description: The label of the work orders
+              example: Fake Lane, Newcastle
             name:
               type: string
               description: The name of the work orders
+              example: IMGA100000
             code:
               type: string
               description: The code of the work orders
+              example: CODE001
             description:
               type: string
               description: The description of the work orders
+              example: DESC-123456
             status:
               type: string
               description: The status of the work orders
+              example: active
             start_date:
               type: string
               description: The start date of the work orders
+              example: 2024-06-13T07:15:23.000Z
             end_date:
               type: string
               description: The end date of the work orders
+              example: 2024-08-13T07:15:23.000Z
+            labels:
+              type: object
+              description: Key-value pairs of labels related to the work orders
+              additionalProperties:
+                type: string
+              example:
+                Plant: EEIOM
+                Scheme WBS: "111222"
+                Z Number: "Z01/123456"
+            address:
+              type: object
+              description: The property address
+              properties:
+                country:
+                  type: string
+                  example: United Kingdom
+                  description: The country of the property
+                department:
+                  type: string
+                  example: Finance
+                  description: The department of the organisation if this property is commercial
+                dependent_thoroughfare:
+                  type: string
+                  example: Dependent Thoroughfare Name
+                  description: The dependent thoroughfare of the property
+                description:
+                  type: string
+                  example: Saltmeadows Rd, Gateshead NE8 3AH
+                  description: A description of the property which is searchable via a typeahead
+                name:
+                  type: string
+                  example: Highway House
+                  description: The name of the property
+                number:
+                  type: string
+                  example: 1A
+                  description: The number of the property
+                organisation:
+                  type: string
+                  example: Ctrl Hub Limited
+                  description: The name of the organisation
+                pobox:
+                  type: string
+                  example: PO Box 123
+                  description: If the address has a POBox, it will be present here
+                post_town:
+                  type: string
+                  example: Gateshead
+                  description: The postal town of the property
+                postcode:
+                  type: string
+                  example: NE8 3AH
+                  description: The postcode of the property
+                thoroughfare:
+                  type: string
+                  example: Saltmeadows Rd
+                  description: The thoroughfare of the property
         links:
           type: object
           properties:
