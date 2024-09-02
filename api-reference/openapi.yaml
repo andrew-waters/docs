@@ -539,6 +539,26 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemaId}/work-orders":
+    get:
+      description: Returns a schemes work orders
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/workOrderModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/orgs/{orgId}/governance/work-orders":
     get:
       description: Returns all work orders
@@ -583,6 +603,26 @@ paths:
       parameters:
         - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/workOrderModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/work-orders/{workOrderId}/properties":
+    get:
+      description: Returns a schemes work orders
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
       responses:
         "200":
           description: ""
