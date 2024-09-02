@@ -1780,10 +1780,11 @@ components:
         attributes:
           type: object
           properties:
-            label:
+            organisation:
               type: string
-              description: The label of the scheme
-              example: Fake Lane, Newcastle
+              description: The primary organisation ID
+              format: uuid
+              example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
             name:
               type: string
               description: The name of the scheme
@@ -1800,14 +1801,20 @@ components:
               type: string
               description: The status of the scheme
               example: active
+              enum: 
+                - In Planning
+                - Live
+                - On Hold
+                - Complete
+                - Cancelled
             start_date:
               type: string
               description: The start date of the scheme
-              example: 2024-06-13T07:15:23.000Z
+              example: 2024-06-13T00:00:00.000Z
             end_date:
               type: string
               description: The end date of the scheme
-              example: 2024-08-13T07:15:23.000Z
+              example: 2024-08-13T00:00:00.000Z
             labels:
               type: object
               description: Key-value pairs of labels related to the scheme
@@ -1840,10 +1847,11 @@ components:
         attributes:
           type: object
           properties:
-            label:
+            organisation:
               type: string
-              description: The label of the work orders
-              example: Fake Lane, Newcastle
+              description: The primary organisation ID
+              format: uuid
+              example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
             name:
               type: string
               description: The name of the work orders
@@ -1858,16 +1866,22 @@ components:
               example: DESC-123456
             status:
               type: string
-              description: The status of the work orders
+              description: The status of the scheme
               example: active
+              enum: 
+                - In Planning
+                - Live
+                - On Hold
+                - Complete
+                - Cancelled
             start_date:
               type: string
               description: The start date of the work orders
-              example: 2024-06-13T07:15:23.000Z
+              example: 2024-06-13T00:00:00.000Z
             end_date:
               type: string
               description: The end date of the work orders
-              example: 2024-08-13T07:15:23.000Z
+              example: 2024-08-13T00:00:00.000Z
             labels:
               type: object
               description: Key-value pairs of labels related to the work orders
@@ -1904,10 +1918,11 @@ components:
         attributes:
           type: object
           properties:
-            label:
+            organisation:
               type: string
-              description: The label of the operation
-              example: Fake Lane, Newcastle
+              description: The primary organisation ID
+              format: uuid
+              example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
             name:
               type: string
               description: The name of the operation
@@ -1922,16 +1937,22 @@ components:
               example: DESC-123456
             status:
               type: string
-              description: The status of the operation
+              description: The status of the scheme
               example: active
+              enum: 
+                - In Planning
+                - Live
+                - On Hold
+                - Complete
+                - Cancelled
             start_date:
               type: string
               description: The start date of the operation
-              example: 2024-06-13T07:15:23.000Z
+              example: 2024-06-13T00:00:00.000Z
             end_date:
               type: string
               description: The end date of the operation
-              example: 2024-08-13T07:15:23.000Z
+              example: 2024-08-13T00:00:00.000Z
             labels:
               type: object
               description: Key-value pairs of labels related to the operation
