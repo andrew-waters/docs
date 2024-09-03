@@ -596,7 +596,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    "$ref": "#/components/schemas/workOrderModel"
+                    "$ref": "#/components/schemas/operationModel"
         "404":
           $ref: "#/components/responses/notfound"
         "429":
