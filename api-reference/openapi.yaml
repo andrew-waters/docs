@@ -650,7 +650,7 @@ components:
           schema:
             type: object
             properties:
-              errors: 
+              errors:
                 type: array
                 items:
                   type: object
@@ -1731,12 +1731,12 @@ components:
           format: uuid
           example: c9927007-a8e3-46bc-b507-7867b114bef5
           description: The ID of the vehicle manufacturer
-    labelModel: 
+    labelModel:
       type: object
-      properties: 
-        key: 
+      properties:
+        key:
           type: string
-        value: 
+        value:
           type: string
     schemeModel:
       type: object
@@ -1776,7 +1776,7 @@ components:
               type: string
               description: The status of the scheme
               example: active
-              enum: 
+              enum:
                 - In Planning
                 - Live
                 - On Hold
@@ -1797,18 +1797,8 @@ components:
               description: An array of label objects related to the scheme
               example:
                 [
-                  {
-                    key: "Network",
-                    value: "EEIOM"
-                  },
-                  {
-                    key: "Scheme WBS",
-                    value: "111222"
-                  },
-                  {
-                    key: "Z Number",
-                    value: "Z01/123456"
-                  }
+                  { key: "your-label", value: "abc123" },
+                  { key: "another-label", value: "meaningful-value" },
                 ]
         links:
           type: object
@@ -1854,7 +1844,7 @@ components:
               type: string
               description: The status of the scheme
               example: active
-              enum: 
+              enum:
                 - In Planning
                 - Live
                 - On Hold
@@ -1879,18 +1869,8 @@ components:
               description: An array of label objects related to the scheme
               example:
                 [
-                  {
-                    key: "Network",
-                    value: "EEIOM"
-                  },
-                  {
-                    key: "Scheme WBS",
-                    value: "111222"
-                  },
-                  {
-                    key: "Z Number",
-                    value: "Z01/123456"
-                  }
+                  { key: "your-label", value: "abc123" },
+                  { key: "another-label", value: "meaningful-value" },
                 ]
         links:
           type: object
@@ -1936,7 +1916,7 @@ components:
               type: string
               description: The status of the scheme
               example: active
-              enum: 
+              enum:
                 - In Planning
                 - Live
                 - On Hold
@@ -1961,11 +1941,10 @@ components:
               description: An array of label objects related to the scheme
               example:
                 [
-                  {
-                    key: "Order Number",
-                    value: "AA123"
-                  }
+                  { key: "your-label", value: "abc123" },
+                  { key: "another-label", value: "meaningful-value" },
                 ]
+
         links:
           type: object
           properties:
