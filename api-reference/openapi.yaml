@@ -1811,9 +1811,9 @@ components:
       properties:
         type:
           type: string
-          example: work_orders
+          example: work-orders
           enum:
-            - work_orders
+            - work-orders
           description: The resource type
         id:
           type: string
