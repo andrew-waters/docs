@@ -1810,6 +1810,13 @@ components:
                     value: "Z01/123456"
                   }
                 ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the scheme was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         links:
           type: object
           properties:
@@ -1892,6 +1899,13 @@ components:
                     value: "Z01/123456"
                   }
                 ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the work order was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         links:
           type: object
           properties:
@@ -1966,6 +1980,13 @@ components:
                     value: "AA123"
                   }
                 ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the operation was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         links:
           type: object
           properties:
