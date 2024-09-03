@@ -554,7 +554,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    "$ref": "#/components/schemas/workOrderModel"
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/workOrderModel"
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -596,7 +598,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    "$ref": "#/components/schemas/operationModel"
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/operationModel"
         "404":
           $ref: "#/components/responses/notfound"
         "429":
