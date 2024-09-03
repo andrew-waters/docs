@@ -1731,6 +1731,13 @@ components:
           format: uuid
           example: c9927007-a8e3-46bc-b507-7867b114bef5
           description: The ID of the vehicle manufacturer
+    labelModel: 
+      type: object
+      properties: 
+        key: 
+          type: string
+        value: 
+          type: string
     schemeModel:
       type: object
       properties:
@@ -1784,14 +1791,25 @@ components:
               description: The end date of the scheme
               example: 2024-08-13T00:00:00.000Z
             labels:
-              type: object
-              description: Key-value pairs of labels related to the scheme
-              additionalProperties:
-                type: string
+              type: array
+              items:
+                "$ref": "#/components/schemas/labelModel"
+              description: An array of label objects related to the scheme
               example:
-                Network: EEIOM
-                Scheme WBS: "111222"
-                Z Number: "Z01/123456"
+                [
+                  {
+                    key: "Network",
+                    value: "EEIOM"
+                  },
+                  {
+                    key: "Scheme WBS",
+                    value: "111222"
+                  },
+                  {
+                    key: "Z Number",
+                    value: "Z01/123456"
+                  }
+                ]
         links:
           type: object
           properties:
@@ -1850,19 +1868,30 @@ components:
               type: string
               description: The end date of the work orders
               example: 2024-08-13T00:00:00.000Z
-            labels:
-              type: object
-              description: Key-value pairs of labels related to the work orders
-              additionalProperties:
-                type: string
-              example:
-                Plant: EEIOM
-                Scheme WBS: "111222"
-                Z Number: "Z01/123456"
-            property_id:
+            usrn:
               type: string
-              description: The property ID of the work orders
-              example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+              description: The USRN (Unique Street Reference Number) related to the work order
+              example: 14924880
+            labels:
+              type: array
+              items:
+                "$ref": "#/components/schemas/labelModel"
+              description: An array of label objects related to the scheme
+              example:
+                [
+                  {
+                    key: "Network",
+                    value: "EEIOM"
+                  },
+                  {
+                    key: "Scheme WBS",
+                    value: "111222"
+                  },
+                  {
+                    key: "Z Number",
+                    value: "Z01/123456"
+                  }
+                ]
         links:
           type: object
           properties:
@@ -1921,13 +1950,22 @@ components:
               type: string
               description: The end date of the operation
               example: 2024-08-13T00:00:00.000Z
+            uprn:
+              type: string
+              description: The UPRN (Unique Property Reference Number) related to the operation
+              example: 10022999531
             labels:
-              type: object
-              description: Key-value pairs of labels related to the operation
-              additionalProperties:
-                type: string
+              type: array
+              items:
+                "$ref": "#/components/schemas/labelModel"
+              description: An array of label objects related to the scheme
               example:
-                Order Number: AA123
+                [
+                  {
+                    key: "Order Number",
+                    value: "AA123"
+                  }
+                ]
         links:
           type: object
           properties:
