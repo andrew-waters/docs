@@ -539,7 +539,7 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemaId}/work-orders":
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders":
     get:
       description: Returns a schemes work orders
       parameters:
@@ -559,49 +559,12 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/work-orders":
-    get:
-      description: Returns all work orders
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/offset"
-        - $ref: "#/components/parameters/sort"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/workOrderModel"
-                  meta:
-                    $ref: "#/components/schemas/meta"
-                  links:
-                    type: object
-                    properties:
-                      current:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/work-orders?limit=10&offset=20
-                      next:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/work-orders?limit=10&offset=30
-                      previous:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/work-orders?limit=10&offset=10
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/work-orders/{workOrderId}":
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}":
     get:
       description: Returns a scheme
       parameters:
         - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
         - $ref: "#/components/parameters/workOrderId"
       responses:
         "200":
@@ -617,12 +580,13 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/work-orders/{workOrderId}/properties":
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations":
     get:
-      description: Returns a schemes work orders
+      description: Returns a work orders operations
       parameters:
         - $ref: "#/components/parameters/orgId"
         - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
       responses:
         "200":
           description: ""
@@ -637,49 +601,13 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/operations":
-    get:
-      description: Returns all operations
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/offset"
-        - $ref: "#/components/parameters/sort"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/operationModel"
-                  meta:
-                    $ref: "#/components/schemas/meta"
-                  links:
-                    type: object
-                    properties:
-                      current:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/operations?limit=10&offset=20
-                      next:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/operations?limit=10&offset=30
-                      previous:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/operations?limit=10&offset=10
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/operations/{operationId}":
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations/{operationId}":
     get:
       description: Returns an operation
       parameters:
         - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
         - $ref: "#/components/parameters/operationId"
       responses:
         "200":
@@ -722,7 +650,7 @@ components:
           schema:
             type: object
             properties:
-              errors:
+              errors: 
                 type: array
                 items:
                   type: object
