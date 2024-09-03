@@ -1883,9 +1883,9 @@ components:
       properties:
         type:
           type: string
-          example: operation
+          example: operations
           enum:
-            - operation
+            - operations
           description: The resource type
         id:
           type: string
