@@ -1763,11 +1763,6 @@ components:
         attributes:
           type: object
           properties:
-            organisation:
-              type: string
-              description: The primary organisation ID
-              format: uuid
-              example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
             name:
               type: string
               description: The name of the scheme
@@ -1838,11 +1833,6 @@ components:
         attributes:
           type: object
           properties:
-            organisation:
-              type: string
-              description: The primary organisation ID
-              format: uuid
-              example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
             name:
               type: string
               description: The name of the work orders
@@ -1925,11 +1915,6 @@ components:
         attributes:
           type: object
           properties:
-            organisation:
-              type: string
-              description: The primary organisation ID
-              format: uuid
-              example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
             name:
               type: string
               description: The name of the operation
