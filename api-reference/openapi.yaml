@@ -1804,6 +1804,13 @@ components:
                   { key: "your-label", value: "abc123" },
                   { key: "another-label", value: "meaningful-value" },
                 ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the scheme was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         links:
           type: object
           properties:
@@ -1862,10 +1869,18 @@ components:
               type: string
               description: The end date of the work orders
               example: 2024-08-13T00:00:00.000Z
+            uprn:
+              type: array
+              items:
+                type: number
+              description: An array of UPRN's (Unique Property Reference Number) related to the work order
+              example: [10022999531]
             usrn:
-              type: string
-              description: The USRN (Unique Street Reference Number) related to the work order
-              example: 14924880
+              type: array
+              items:
+                type: number
+              description: An array of USRN's (Unique Street Reference Number) related to the work order
+              example: [14924880]
             labels:
               type: array
               items:
@@ -1876,6 +1891,13 @@ components:
                   { key: "your-label", value: "abc123" },
                   { key: "another-label", value: "meaningful-value" },
                 ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the work order was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         links:
           type: object
           properties:
@@ -1935,9 +1957,17 @@ components:
               description: The end date of the operation
               example: 2024-08-13T00:00:00.000Z
             uprn:
-              type: string
-              description: The UPRN (Unique Property Reference Number) related to the operation
-              example: 10022999531
+              type: array
+              items:
+                type: number
+              description: An array of UPRN's (Unique Property Reference Number) related to the work order
+              example: [10022999531]
+            usrn:
+              type: array
+              items:
+                type: number
+              description: An array of USRN's (Unique Street Reference Number) related to the work order
+              example: [14924880]
             labels:
               type: array
               items:
@@ -1948,7 +1978,13 @@ components:
                   { key: "your-label", value: "abc123" },
                   { key: "another-label", value: "meaningful-value" },
                 ]
-
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the operation was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         links:
           type: object
           properties:
