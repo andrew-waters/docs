@@ -1875,10 +1875,18 @@ components:
               type: string
               description: The end date of the work orders
               example: 2024-08-13T00:00:00.000Z
+            uprn:
+              type: array
+              items: 
+                type: number
+              description: An array of UPRN's (Unique Property Reference Number) related to the work order
+              example: [10022999531]
             usrn:
-              type: string
-              description: The USRN (Unique Street Reference Number) related to the work order
-              example: 14924880
+              type: array
+              items: 
+                type: number 
+              description: An array of USRN's (Unique Street Reference Number) related to the work order
+              example: [14924880]
             labels:
               type: array
               items:
@@ -1965,9 +1973,17 @@ components:
               description: The end date of the operation
               example: 2024-08-13T00:00:00.000Z
             uprn:
-              type: string
-              description: The UPRN (Unique Property Reference Number) related to the operation
-              example: 10022999531
+              type: array
+              items: 
+                type: number
+              description: An array of UPRN's (Unique Property Reference Number) related to the work order
+              example: [10022999531]
+            usrn:
+              type: array
+              items: 
+                type: number 
+              description: An array of USRN's (Unique Street Reference Number) related to the work order
+              example: [14924880]
             labels:
               type: array
               items:
