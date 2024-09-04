@@ -1869,13 +1869,13 @@ components:
               type: string
               description: The end date of the work orders
               example: 2024-08-13T00:00:00.000Z
-            uprn:
+            uprns:
               type: array
               items:
                 type: number
               description: An array of UPRN's (Unique Property Reference Number) related to the work order
               example: [10022999531]
-            usrn:
+            usrns:
               type: array
               items:
                 type: number
@@ -1956,13 +1956,13 @@ components:
               type: string
               description: The end date of the operation
               example: 2024-08-13T00:00:00.000Z
-            uprn:
+            uprns:
               type: array
               items:
                 type: number
               description: An array of UPRN's (Unique Property Reference Number) related to the work order
               example: [10022999531]
-            usrn:
+            usrns:
               type: array
               items:
                 type: number
