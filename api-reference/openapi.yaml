@@ -812,14 +812,18 @@ components:
               type: string
               example: 2024-06-13T07:15:23Z
               description: The date the reinstatement was closed ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))
-            property_type:
+            type:
               type: string
               example: private
               description: The type of property the resintatement is for
               enum:
                 - private
                 - public
-            property_uprn:
+            usrn:
+              type: number
+              example: 28317107
+              description: The Unique Street Reference Number
+            uprn:
               type: number
               example: 10022999531
               description: The Unique Property Reference Number
