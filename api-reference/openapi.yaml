@@ -581,7 +581,7 @@ components:
       description: The ID of the organisation
       schema:
         type: string
-        example: ctrl-hub
+        example: cc9746e0-9286-4575-ae0b-ac1b0fe873a6
       required: true
     uprn:
       name: uprn
