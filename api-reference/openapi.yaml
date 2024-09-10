@@ -725,6 +725,30 @@ components:
               type: string
               example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
               description: A description for the organisation
+            nomenclature: 
+              type: object
+              properties:
+                governance:
+                  type: object
+                  properties:
+                    schemes: 
+                      type: object
+                      properties:
+                        "en-GB":
+                          type: string
+                          example: Projects
+                    work-orders: 
+                      type: object
+                      properties:
+                        "en-GB":
+                          type: string
+                          example: Sites
+                    operations: 
+                      type: object
+                      properties:
+                        "en-GB":
+                          type: string
+                          example: Tasks
         meta:
           type: object
           properties:
