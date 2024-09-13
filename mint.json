@@ -57,7 +57,11 @@
         },
         {
           "group": "Governance",
-          "pages": ["concepts/governance/index", "concepts/governance/schemes"]
+          "pages": [
+            "concepts/governance/index",
+            "concepts/governance/schemes",
+            "concepts/governance/properties-and-streets"
+          ]
         }
       ]
     },
