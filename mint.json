@@ -89,6 +89,14 @@
             "api-reference/governance/properties/get-many",
             "api-reference/governance/properties/get-one"
           ]
+        },
+        {
+          "group": "Streets",
+          "pages": [
+            "api-reference/governance/streets/model",
+            "api-reference/governance/streets/get-many",
+            "api-reference/governance/streets/get-one"
+          ]
         }
       ]
     },
