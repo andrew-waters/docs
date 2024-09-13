@@ -348,6 +348,47 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/governance/streets/{usrn}":
+    get:
+      description: Find a street by USRN
+      parameters:
+        - $ref: "#/components/parameters/usrn"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/streetModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/governance/streets":
+    get:
+      description: Finds streets
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/streetModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/assets/vehicles/manufacturers":
     get:
       description: Returns all manufacturers
@@ -590,6 +631,14 @@ components:
       schema:
         type: number
         example: 10022999531
+      required: true
+    usrn:
+      name: usrn
+      in: path
+      description: The USRN of the street
+      schema:
+        type: number
+        example: 4601764
       required: true
     manufacturerId:
       name: manufacturerId
@@ -1082,6 +1131,54 @@ components:
               type: object
               description: A key value pair of of the NeedsCodes which are associated with the property with the description
               example: { "19": "Pregnancy/Families with young children < 6" }
+    streetModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: streets
+          description: The type of resource
+          enum:
+            - streets
+        id:
+          type: string
+          format: uuid
+          description: The street ID
+          example: ec2176a1-2c1b-42fb-a81a-edbe10b7b19f
+        attributes:
+          type: object
+          properties:
+            usrn:
+              type: number
+              example: 4601764
+              description: The Unique Street Reference Number
+            location:
+              type: object
+              description: The street location in latitude and longitude
+              properties:
+                coordinates:
+                  type: array
+                  items:
+                    type: array
+                    example: [[
+                        640921.4380000001,
+                        310210.6919999998,
+                        0
+                    ],
+                    [
+                        641634.2631999999,
+                        309910.6437999997,
+                        0
+                    ]]
+                    items:
+                      type: array
+                      items:
+                        type: number
+                        description: The coordinates of the street
+                type:
+                  type: string
+                  example: MultiLineString
+                  description: The type of location
 
     meta:
       type: object
