@@ -95,6 +95,14 @@
           ]
         },
         {
+          "group": "Permits",
+          "pages": [
+            "api-reference/governance/permits/model",
+            "api-reference/governance/permits/get-all",
+            "api-reference/governance/permits/get-one"
+          ]
+        },
+        {
           "group": "Operations",
           "pages": [
             "api-reference/governance/operations/model",
