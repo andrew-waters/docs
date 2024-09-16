@@ -1,15 +1,25 @@
 ---
-title: 'Properties and Streets'
-sidebarTitle: 'Properties and Streets'
+title: 'Geospatial Data'
+sidebarTitle: 'Geospatial Data'
 description: ''
 icon: 'globe'
 mode: "wide"
 ---
 
+Ctrl Hub offer data endpoints for geospatial data. This allows you to perform queries that can be displayed on a map, or within a gepgraphical boundary.
+
+We currently offer both property and street data in the UK. You can read more about the standards (UPRN and USRN) [here](https://www.gov.uk/government/publications/open-standards-for-government/identifying-property-and-street-information).
+
 ## Properties
 
-Properties in Ctrl Hub are identified using their UPRN.
+Properties in Ctrl Hub are identified using their UPRN. The term "properties" is wide - it is not just domestic and commerical buildings, the dataset includes bus stops, substations, and other infrastructure.
+
+Properties have a fixed coordinate.
+
+[View the API Model](/api-reference/governance/properties/model).
 
 ## Streets
 
-Streets in Ctrl Hub are identified using their USRN.
+Streets in Ctrl Hub are identified using their USRN. Unlike properties, streets are multi line coordinates. This is because streets are not a single point, nor are they a straight line.
+
+[View the API Model](/api-reference/governance/streets/model).
