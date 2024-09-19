@@ -83,6 +83,38 @@
           ]
         },
         {
+          "group": "Schemes",
+          "pages": [
+            "api-reference/governance/schemes/model",
+            "api-reference/governance/schemes/get-all",
+            "api-reference/governance/schemes/get-one"
+          ]
+        },
+        {
+          "group": "Work Orders",
+          "pages": [
+            "api-reference/governance/work-orders/model",
+            "api-reference/governance/work-orders/get-all",
+            "api-reference/governance/work-orders/get-one"
+          ]
+        },
+        {
+          "group": "Permits",
+          "pages": [
+            "api-reference/governance/permits/model",
+            "api-reference/governance/permits/get-all",
+            "api-reference/governance/permits/get-one"
+          ]
+        },
+        {
+          "group": "Operations",
+          "pages": [
+            "api-reference/governance/operations/model",
+            "api-reference/governance/operations/get-all",
+            "api-reference/governance/operations/get-one"
+          ]
+        },
+        {
           "group": "Properties",
           "pages": [
             "api-reference/governance/properties/model",

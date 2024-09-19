@@ -522,6 +522,197 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes":
+    get:
+      description: Returns all schemes
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/schemeModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}":
+    get:
+      description: Returns a scheme
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/schemeModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders":
+    get:
+      description: Returns a schemes work orders
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/workOrderModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}":
+    get:
+      description: Returns a scheme
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/workOrderModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations":
+    get:
+      description: Returns a work orders operations
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/operationModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations/{operationId}":
+    get:
+      description: Returns an operation
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+        - $ref: "#/components/parameters/operationId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/operationModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/permits":
+    get:
+      description: Returns a work orders permits
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/permitModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/permits/{permitId}":
+    get:
+      description: Returns an permit
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+        - $ref: "#/components/parameters/permitId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/permitModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
 components:
   responses:
     notfound:
@@ -648,6 +839,38 @@ components:
         type: string
         example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
       required: true
+    schemeId:
+      name: schemeId
+      in: path
+      description: The ID of the scheme
+      schema:
+        type: string
+        example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
+    workOrderId:
+      name: workOrderId
+      in: path
+      description: The ID of the work order
+      schema:
+        type: string
+        example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
+    permitId:
+      name: permitId
+      in: path
+      description: The ID of the permit
+      schema:
+        type: string
+        example: bcbdf616-6dd9-4ad6-a01b-b451a0c1205a
+      required: true
+    operationId:
+      name: operationId
+      in: path
+      description: The ID of the operation
+      schema:
+        type: string
+        example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
     limit:
       name: limit
       in: query
@@ -738,6 +961,210 @@ components:
                         type: string
                         example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
                         description: A description for the organisation
+                    required:
+                      - name
+                      - description
+                required:
+                  - type
+                  - id
+    workOrderCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: work_orders
+                    description: The type of resource
+                    enum:
+                      - work_orders
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The work order name
+                      description:
+                        type: string
+                        description: A description for the work order
+                    required:
+                      - name
+                required:
+                  - type
+    workOrderUpdate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: work_orders
+                    description: The type of resource
+                    enum:
+                      - work_orders
+                  id:
+                    type: string
+                    format: uuid
+                    example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+                    description: The ID of the resource
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The work order name
+                      description:
+                        type: string
+                        description: A description for the work order
+                    required:
+                      - name
+                      - description
+                required:
+                  - type
+                  - id
+    schemeCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: schemes
+                    description: The type of resource
+                    enum:
+                      - schemes
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The scheme name
+                      description:
+                        type: string
+                        description: A description for the scheme
+                    required:
+                      - name
+                required:
+                  - type
+    schemeUpdate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: schemes
+                    description: The type of resource
+                    enum:
+                      - schemes
+                  id:
+                    type: string
+                    format: uuid
+                    example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+                    description: The ID of the resource
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The scheme name
+                      description:
+                        type: string
+                        description: A description for the scheme
+                    required:
+                      - name
+                      - description
+                required:
+                  - type
+                  - id
+    operationCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: operations
+                    description: The type of resource
+                    enum:
+                      - operations
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Ctrl Hub
+                        description: The operation name
+                      description:
+                        type: string
+                        description: A description for the operation
+                    required:
+                      - name
+                required:
+                  - type
+    operationUpdate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: operations
+                    description: The type of resource
+                    enum:
+                      - operations
+                  id:
+                    type: string
+                    format: uuid
+                    example: 7e0c875a-fd47-401d-bd25-4278ed58d721
+                    description: The ID of the resource
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The operation name
+                      description:
+                        type: string
+                        description: A description for the operation
                     required:
                       - name
                       - description
@@ -1486,6 +1913,308 @@ components:
           format: uuid
           example: c9927007-a8e3-46bc-b507-7867b114bef5
           description: The ID of the vehicle manufacturer
+    labelModel:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    schemeModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: schemes
+          enum:
+            - schemes
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+          description: The ID of the schemes
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the scheme
+              example: IMGA100000
+            code:
+              type: string
+              description: The code of the scheme
+              example: CODE001
+            description:
+              type: string
+              description: The description of the scheme
+              example: DESC-123456
+            status:
+              type: string
+              description: The status of the scheme
+              example: active
+              enum:
+                - In Planning
+                - Live
+                - On Hold
+                - Complete
+                - Cancelled
+            start_date:
+              type: string
+              description: The start date of the scheme
+              example: 2024-06-13T00:00:00.000Z
+            end_date:
+              type: string
+              description: The end date of the scheme
+              example: 2024-08-13T00:00:00.000Z
+            labels:
+              type: array
+              items:
+                "$ref": "#/components/schemas/labelModel"
+              description: An array of label objects related to the scheme
+              example:
+                [
+                  { key: "your-label", value: "abc123" },
+                  { key: "another-label", value: "meaningful-value" },
+                ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the scheme was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    workOrderModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: work-orders
+          enum:
+            - work-orders
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+          description: The ID of the work orders
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the work orders
+              example: IMGA100000
+            code:
+              type: string
+              description: The code of the work orders
+              example: CODE001
+            description:
+              type: string
+              description: The description of the work orders
+              example: DESC-123456
+            status:
+              type: string
+              description: The status of the scheme
+              example: active
+              enum:
+                - In Planning
+                - Live
+                - On Hold
+                - Complete
+                - Cancelled
+            start_date:
+              type: string
+              description: The start date of the work orders
+              example: 2024-06-13T00:00:00.000Z
+            end_date:
+              type: string
+              description: The end date of the work orders
+              example: 2024-08-13T00:00:00.000Z
+            uprns:
+              type: array
+              items:
+                type: number
+              description: An array of UPRN's (Unique Property Reference Number) related to the work order
+              example: [10022999531]
+            usrns:
+              type: array
+              items:
+                type: number
+              description: An array of USRN's (Unique Street Reference Number) related to the work order
+              example: [14924880]
+            labels:
+              type: array
+              items:
+                "$ref": "#/components/schemas/labelModel"
+              description: An array of label objects related to the scheme
+              example:
+                [
+                  { key: "your-label", value: "abc123" },
+                  { key: "another-label", value: "meaningful-value" },
+                ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the work order was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    operationModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: operations
+          enum:
+            - operations
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+          description: The ID of the operation
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the operation
+              example: IMGA100000
+            code:
+              type: string
+              description: The code of the operation
+              example: CODE001
+            description:
+              type: string
+              description: The description of the operation
+              example: DESC-123456
+            status:
+              type: string
+              description: The status of the scheme
+              example: active
+              enum:
+                - In Planning
+                - Live
+                - On Hold
+                - Complete
+                - Cancelled
+            start_date:
+              type: string
+              description: The start date of the operation
+              example: 2024-06-13T00:00:00.000Z
+            end_date:
+              type: string
+              description: The end date of the operation
+              example: 2024-08-13T00:00:00.000Z
+            uprns:
+              type: array
+              items:
+                type: number
+              description: An array of UPRN's (Unique Property Reference Number) related to the work order
+              example: [10022999531]
+            usrns:
+              type: array
+              items:
+                type: number
+              description: An array of USRN's (Unique Street Reference Number) related to the work order
+              example: [14924880]
+            labels:
+              type: array
+              items:
+                "$ref": "#/components/schemas/labelModel"
+              description: An array of label objects related to the scheme
+              example:
+                [
+                  { key: "your-label", value: "abc123" },
+                  { key: "another-label", value: "meaningful-value" },
+                ]
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the operation was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/operations/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    permitModel:
+        type: object
+        properties:
+          type:
+            type: string
+            example: permits
+            enum:
+              - permits
+            description: The resource type
+          id:
+            type: string
+            format: uuid
+            example: bcbdf616-6dd9-4ad6-a01b-b451a0c1205a
+            description: The ID of the permit
+          attributes:
+            type: object
+            properties:
+              reference:
+                type: string
+                description: The reference of the permit
+                example: REF001
+              description:
+                type: string
+                description: The description of the permit
+                example: DESC-123456
+              proposed_start_date:
+                type: string
+                description: The proposed start date of the permit
+                example: 2024-06-13T00:00:00.000Z
+              proposed_end_date:
+                type: string
+                description: The proposed end date of the permit
+                example: 2024-08-13T00:00:00.000Z
+          meta:
+            type: object
+            properties:
+              created_at:
+                type: string
+                example: 2024-06-13T07:15:23Z
+                description: "**Sortable**. The time the permit was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+              updated_at:
+                type: string
+                example: 2024-06-13T07:15:23Z
+                description: "**Sortable**. The time the permit was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+              status:
+                type: string
+                enum: 
+                  - submitted
+                  - proposed
+                  - refused
+                  - granted
+                  - in_progress
+                  - cancelled
+                  - closed
+                example: granted
+          links:
+            type: object
+            properties:
+              self:
+                type: string
+                example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
   securitySchemes:
     bearerAuth:
       type: http
