@@ -216,6 +216,19 @@
                 "api-reference/admin/iam/permissions/get-all",
                 "api-reference/admin/iam/permissions/get-one"
               ]
+            },
+            {
+              "group": "Service Accounts",
+              "pages": [
+                "api-reference/admin/iam/service-accounts/model",
+                "api-reference/admin/iam/service-accounts/get-all",
+                "api-reference/admin/iam/service-accounts/get-one",
+                "api-reference/admin/iam/service-accounts/create",
+                "api-reference/admin/iam/service-accounts/model-key",
+                "api-reference/admin/iam/service-accounts/create-key",
+                "api-reference/admin/iam/service-accounts/model-log",
+                "api-reference/admin/iam/service-accounts/get-logs"
+              ]
             }
           ]
         }

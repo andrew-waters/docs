@@ -211,6 +211,128 @@ paths:
                     "$ref": "#/components/schemas/organisationModel"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/admin/iam/service-accounts":
+    get:
+      description: Returns all service accounts for an organisation
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/serviceAccountModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts?limit=10&offset=10
+        "429":
+          $ref: "#/components/responses/throttled"
+    post:
+      description: Use this endpoint to create a new service account.
+      requestBody:
+        $ref: "#/components/requestBodies/serviceAccountCreate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/serviceAccountModel"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/admin/iam/service-accounts/{accountId}":
+    get:
+      description: Returns a service account
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/serviceAccountModel"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/admin/iam/service-accounts/{accountId}/keys":
+    post:
+      description: Creates a new key for service account
+      requestBody:
+        $ref: "#/components/requestBodies/serviceAccountKeyCreate"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/serviceAccountKeyCreatedModel"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/admin/iam/service-accounts/{accountId}/logs":
+    get:
+      description: Get logs for requests that have been made using the service account
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/serviceAccountLogModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts/logs?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts/logs?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts/logs?limit=10&offset=10
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/orgs/{orgId}/data-capture/forms":
     get:
       description: Returns all forms for an organisation that the caller has access to
@@ -1016,6 +1138,61 @@ components:
         default: created_at
       required: false
   requestBodies:
+    serviceAccountCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: service-accounts
+                    description: The type of resource
+                    enum:
+                      - organisations
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: ACME Corp
+                        description: The role name
+                      description:
+                        type: string
+                        example: This service account is for integrating with ACME Corp
+                        description: A description for the service account
+                      enabled:
+                        type: boolean
+                        example: true
+                        description: Whether the service account is enabled or not
+                    required:
+                      - name
+                required:
+                  - type
+    serviceAccountKeyCreate:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: service-account-keys
+                    description: The type of resource
+                    enum:
+                      - service-account-keys
+                required:
+                  - type
     organisationCreate:
       description: ""
       required: true
@@ -1292,6 +1469,201 @@ components:
                   - type
                   - id
   schemas:
+    serviceAccountLogModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: service-account-logs
+          enum:
+            - service-account-logs
+        id:
+          type: string
+          format: uuid
+          example: 14b28316-9c20-8a7d-e85a-b62f29a29ac5
+        attributes:
+          type: object
+          properties:
+            actor:
+              type: object
+              properties:
+                type:
+                  type: string
+                  example: service-accounts
+                  enum:
+                    - service-accounts
+                    - users
+                id:
+                  type: string
+                  format: uuid
+                  example: 12e3ff58-072b-0ea2-7079-f64748d5a16b
+            duration:
+              type: integer
+              example: 10
+            request:
+              type: object
+              properties:
+                time:
+                  type: string
+                  format: date-time
+                  example: 2024-10-16T17:12:59.953516245Z
+                headers:
+                  type: object
+                  properties:
+                    Authorization:
+                      type: array
+                      items:
+                        type: string
+                        example: redacted
+                    Content-Type:
+                      type: array
+                      items:
+                        type: string
+                        example: application/json; charset=utf-8
+                body:
+                  type: string
+                  description: The request body
+                path:
+                  type: string
+                  example: /path/to/endpoint
+                query:
+                  type: object
+                raw_query:
+                  type: string
+                  example: param1=value1&param2=value2
+                method:
+                  type: string
+                  example: GET
+                  enum:
+                    - GET
+                    - POST
+                    - PUT
+                    - DELETE
+                    - PATCH
+                    - OPTIONS
+                    - HEAD
+                    - CONNECT
+            response:
+              type: object
+              properties:
+                time:
+                  type: string
+                  format: date-time
+                  example: 2024-10-16T17:12:59.953516245Z
+                body:
+                  type: string
+                  description: The response body
+                status:
+                  type: integer
+                  example: 200
+                headers:
+                  type: object
+                  properties:
+                    Content-Type:
+                      type: array
+                      items:
+                        type: string
+                        example: application/json; charset=utf-8
+    serviceAccountModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: service-accounts
+          enum:
+            - service-accounts
+        id:
+          type: string
+          format: uuid
+          example: 14b28316-9c20-8a7d-e85a-b62f29a29ac5
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: ACME Corp
+              description: The role name
+            description:
+              type: string
+              example: This service account is for integrating with ACME Corp
+              description: A description for the service account
+            enabled:
+              type: boolean
+              example: true
+              description: Whether the service account is enabled or not
+            email:
+              type: string
+              example: acmecorp@7e0c875a-fd47-401d-bd25-4278ed58d721.iam.ctrl-hub.com
+              description: A system generated email address for the service account, comprising of the service account ID and the IAM domain
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              format: date-time
+              example: 2024-10-14T17:03:06.204Z
+        relationships:
+          type: object
+          properties:
+            keys:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: service-account-keys
+                        enum:
+                          - service-account-keys
+                      id:
+                        type: string
+                        format: uuid
+                        example: 4c9d6aa9-f658-4e9e-8510-39d05a574018
+    serviceAccountKeyModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: service-accounts
+          enum:
+            - service-accounts
+        id:
+          type: string
+          format: uuid
+          example: 14b28316-9c20-8a7d-e85a-b62f29a29ac5
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              example: true
+              description: Whether the service account is enabled or not
+    serviceAccountKeyCreatedModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: service-accounts
+          enum:
+            - service-accounts
+        id:
+          type: string
+          format: uuid
+          example: 14b28316-9c20-8a7d-e85a-b62f29a29ac5
+        attributes:
+          type: object
+          properties:
+            client_secret:
+              type: string
+              example: 5-wyyBa465q6FikrEqtm07LbSc
+              description: The client secret
+            enabled:
+              type: boolean
+              example: true
+              description: Whether the service account is enabled or not
     roleModel:
       type: object
       properties:
