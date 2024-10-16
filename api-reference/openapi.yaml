@@ -1201,25 +1201,25 @@ components:
               type: string
               example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
               description: A description for the organisation
-            nomenclature: 
+            nomenclature:
               type: object
               properties:
                 governance:
                   type: object
                   properties:
-                    schemes: 
+                    schemes:
                       type: object
                       properties:
                         "en-GB":
                           type: string
                           example: Projects
-                    work-orders: 
+                    work-orders:
                       type: object
                       properties:
                         "en-GB":
                           type: string
                           example: Sites
-                    operations: 
+                    operations:
                       type: object
                       properties:
                         "en-GB":
@@ -1587,16 +1587,11 @@ components:
                   type: array
                   items:
                     type: array
-                    example: [[
-                        640921.4380000001,
-                        310210.6919999998,
-                        0
-                    ],
-                    [
-                        641634.2631999999,
-                        309910.6437999997,
-                        0
-                    ]]
+                    example:
+                      [
+                        [640921.4380000001, 310210.6919999998, 0],
+                        [641634.2631999999, 309910.6437999997, 0],
+                      ]
                     items:
                       type: array
                       items:
@@ -1606,7 +1601,6 @@ components:
                   type: string
                   example: MultiLineString
                   description: The type of location
-
     meta:
       type: object
       properties:
@@ -2155,66 +2149,66 @@ components:
               type: string
               example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/operations/5852cf16-8ec8-4aba-809e-f8d828772c4e
     permitModel:
-        type: object
-        properties:
-          type:
-            type: string
-            example: permits
-            enum:
-              - permits
-            description: The resource type
-          id:
-            type: string
-            format: uuid
-            example: bcbdf616-6dd9-4ad6-a01b-b451a0c1205a
-            description: The ID of the permit
-          attributes:
-            type: object
-            properties:
-              reference:
-                type: string
-                description: The reference of the permit
-                example: REF001
-              description:
-                type: string
-                description: The description of the permit
-                example: DESC-123456
-              proposed_start_date:
-                type: string
-                description: The proposed start date of the permit
-                example: 2024-06-13T00:00:00.000Z
-              proposed_end_date:
-                type: string
-                description: The proposed end date of the permit
-                example: 2024-08-13T00:00:00.000Z
-          meta:
-            type: object
-            properties:
-              created_at:
-                type: string
-                example: 2024-06-13T07:15:23Z
-                description: "**Sortable**. The time the permit was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
-              updated_at:
-                type: string
-                example: 2024-06-13T07:15:23Z
-                description: "**Sortable**. The time the permit was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
-              status:
-                type: string
-                enum: 
-                  - submitted
-                  - proposed
-                  - refused
-                  - granted
-                  - in_progress
-                  - cancelled
-                  - closed
-                example: granted
-          links:
-            type: object
-            properties:
-              self:
-                type: string
-                example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
+      type: object
+      properties:
+        type:
+          type: string
+          example: permits
+          enum:
+            - permits
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: bcbdf616-6dd9-4ad6-a01b-b451a0c1205a
+          description: The ID of the permit
+        attributes:
+          type: object
+          properties:
+            reference:
+              type: string
+              description: The reference of the permit
+              example: REF001
+            description:
+              type: string
+              description: The description of the permit
+              example: DESC-123456
+            proposed_start_date:
+              type: string
+              description: The proposed start date of the permit
+              example: 2024-06-13T00:00:00.000Z
+            proposed_end_date:
+              type: string
+              description: The proposed end date of the permit
+              example: 2024-08-13T00:00:00.000Z
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the permit was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+            updated_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the permit was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+            status:
+              type: string
+              enum:
+                - submitted
+                - proposed
+                - refused
+                - granted
+                - in_progress
+                - cancelled
+                - closed
+              example: granted
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
   securitySchemes:
     bearerAuth:
       type: http
