@@ -951,7 +951,7 @@ components:
   securitySchemes:
     oAuth2ClientCredentials:
       type: oauth2
-      description: https://docs.ctrl-hub.com/api-reference/auth
+      description: To understand how to authenticate, see [the auth docs](https://docs.ctrl-hub.com/api-reference/auth)
       flows:
         clientCredentials:
           tokenUrl: https://auth.ctrl-hub.com/oauth2/token
