@@ -1,0 +1,110 @@
+---
+title: 'Auth'
+description: 'How to perform authenticated requests to the API'
+---
+
+Authz requests typically takes one of two forms. Either a user is authenticated in a browser and has a session cookie, or you are calling the API from a remote server (a machine to machine request).
+
+_Machine to machine exchanges are the most common scenario and these use the OAuth 2.0 Client Credentials flow._
+
+### OAuth 2.0
+
+[OAuth 2.0](https://www.oauth.com) is a wide standard for authorising requests to APIs. It is a protocol that allows a user to grant limited access to their resources on one site, to another site, without having to expose their credentials.
+
+The [Client Credentials](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) flow is the most common flow for machine to machine requests. This flow is used when the client application is acting on its own behalf, rather than on behalf of a user. This is how you should authenticate requests to the Ctrl Hub API when building an integration.
+
+<Info>
+  If you need to access data on behalf of an indivdual user, please get in touch so we can discuss the best way to do this.
+</Info>
+
+
+<Steps>
+  <Step title="Service Accounts">
+
+    To call the API from a remote server, first you will need to create a service account. This can be done in the UI, or via the API if you already have a service account that can create one on your behalf.
+
+    <Note>
+      To create a new service account in the dashboard, first log in to [the dashboard](https://app.ctrl-hub.com) and then select the organisation you want to create an account for.
+      Navigate to `Admin > IAM > Service Accounts` and select create a new service account. Once created, you can then create a new key which is a Client ID / Secret pair. You'll need these
+      to authenticate your requests to the API.
+    </Note>
+
+  </Step>
+
+  <Step title="Exchanging Client Credentials for an Access Token">
+
+  Using your service accounts' Client ID and secret, you should exchange these for an access token. This token is then used to authenticate requests for resources from the API.
+
+    An access token has a lifetime, and the response with the access token will tell you how long it is valid for. If the access token has expired, or is not valid, requests to the API will return a 401 status code. When expired, you can request a new token from the OAuth2 API.
+
+    For example, this curl requests, piped to `jq` will return an access token payload.
+
+<CodeGroup>
+
+```bash Command
+export CLIENT_ID=your-client-id
+export CLIENT_SECRET=your-client-secret
+curl -s -X "POST" "https://auth.ctrl-hub.com/oauth2/token" \
+    -H 'Content-Type: application/x-www-form-urlencoded; charset=utf-8' \
+    --data-urlencode "grant_type=client_credentials" \
+    --data-urlencode "client_id=$CLIENT_ID" \
+    --data-urlencode "client_secret=$CLIENT_SECRET" | jq '.'
+```
+
+```json Output
+{
+    "access_token": "at_xcAJgW2fzfJrlUuEJU1HDF6kSt5dG_g2-haxUFUcg6g.hg8m47lt75XEBWCmikmDvPhnT6t_ofrKhiG-5ihtMO4",
+    "expires_in": 3599,
+    "scope": "",
+    "token_type": "bearer"
+}
+```
+
+</CodeGroup>
+
+  </Step>
+
+  <Step title="Using the Access Token to make requests for Resources">
+
+    You can then use the `access_token` in the `Authorization` header of your requests to the API.
+
+    <CodeGroup>
+
+```bash Command
+export ACCESS_TOKEN=at_xcAJgW2fzfJrlUuEJU1HDF6kSt5dG_g2-haxUFUcg6g.hg8m47lt75XEBWCmikmDvPhnT6t_ofrKhiG-5ihtMO4
+curl -s -X "GET" "https://api.ctrl-hub.com/v3/orgs" \
+    -H "Authorization: Bearer $ACCESS_TOKEN" | jq '.'
+```
+
+```json Output
+{
+  "data": [
+    {
+      "type": "organisations",
+      "id": "4c27cfd6-2a18-ef0f-b2c2-b2563859b3b1",
+      "attributes": {
+        "description": "",
+        "name": "Your organisation",
+        "slug": "your-organisation"
+      },
+      "links": {
+        "self": "https://api.ctrl-hub.com/v3/orgs/4c27cfd6-2a18-ef0f-b2c2-b2563859b3b1"
+      },
+      "meta": {
+        "created_at": "2024-07-02T17:39:09.896Z",
+        "status": "active"
+      }
+    }
+  ]
+}
+```
+
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
+
+It's as simple as that! You've now authorised your service account by exchanging the credentials for an access token and can make requests to the API.
+
+The API will validate the token and return the requested resources if your service account has the correct permissions set.

@@ -5,8 +5,120 @@ info:
 servers:
   - url: https://api.ctrl-hub.com
 security:
-  - bearerAuth: []
+  - oAuth2ClientCredentials: []
 paths:
+  "/v3/admin/iam/permissions":
+    get:
+      security: []
+      description: Returns all permissions
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/permissionModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/admin/iam/permissions?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/admin/iam/permissions?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/admin/iam/permissions?limit=10&offset=10
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/admin/iam/permissions/{permissionId}":
+    get:
+      security: []
+      description: Returns all permissions
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/permissionModel"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/admin/iam/roles":
+    get:
+      security: []
+      description: Returns all system roles
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/roleModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/admin/iam/roles?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/admin/iam/roles?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/admin/iam/roles?limit=10&offset=10
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/admin/iam/roles/{roleId}":
+    get:
+      security: []
+      description: Returns a system role
+      parameters:
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/roleModel"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/orgs":
     get:
       description: Returns all organisations that the caller has access to
@@ -223,6 +335,197 @@ paths:
                         type: string
                         example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/forms?limit=10&offset=10
 
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes":
+    get:
+      description: Returns all schemes
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/schemeModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=10
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}":
+    get:
+      description: Returns a scheme
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/schemeModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders":
+    get:
+      description: Returns a schemes work orders
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/workOrderModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}":
+    get:
+      description: Returns a scheme
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/workOrderModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations":
+    get:
+      description: Returns a work orders operations
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/operationModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations/{operationId}":
+    get:
+      description: Returns an operation
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+        - $ref: "#/components/parameters/operationId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/operationModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/permits":
+    get:
+      description: Returns a work orders permits
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/permitModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/permits/{permitId}":
+    get:
+      description: Returns an permit
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/schemeId"
+        - $ref: "#/components/parameters/workOrderId"
+        - $ref: "#/components/parameters/permitId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/permitModel"
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -522,198 +825,15 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes":
-    get:
-      description: Returns all schemes
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/offset"
-        - $ref: "#/components/parameters/sort"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/schemeModel"
-                  meta:
-                    $ref: "#/components/schemas/meta"
-                  links:
-                    type: object
-                    properties:
-                      current:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=20
-                      next:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=30
-                      previous:
-                        type: string
-                        example: https://api.ctrl-hub.com/v3/governance/schemes?limit=10&offset=10
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemeId}":
-    get:
-      description: Returns a scheme
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/schemeId"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/schemeModel"
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders":
-    get:
-      description: Returns a schemes work orders
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/schemeId"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/workOrderModel"
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}":
-    get:
-      description: Returns a scheme
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/schemeId"
-        - $ref: "#/components/parameters/workOrderId"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/workOrderModel"
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations":
-    get:
-      description: Returns a work orders operations
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/schemeId"
-        - $ref: "#/components/parameters/workOrderId"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/operationModel"
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/operations/{operationId}":
-    get:
-      description: Returns an operation
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/schemeId"
-        - $ref: "#/components/parameters/workOrderId"
-        - $ref: "#/components/parameters/operationId"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/operationModel"
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/permits":
-    get:
-      description: Returns a work orders permits
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/schemeId"
-        - $ref: "#/components/parameters/workOrderId"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/permitModel"
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/governance/schemes/{schemeId}/work-orders/{workOrderId}/permits/{permitId}":
-    get:
-      description: Returns an permit
-      parameters:
-        - $ref: "#/components/parameters/orgId"
-        - $ref: "#/components/parameters/schemeId"
-        - $ref: "#/components/parameters/workOrderId"
-        - $ref: "#/components/parameters/permitId"
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    "$ref": "#/components/schemas/permitModel"
-        "404":
-          $ref: "#/components/responses/notfound"
-        "429":
-          $ref: "#/components/responses/throttled"
 components:
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: https://docs.ctrl-hub.com/api-reference/auth
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.ctrl-hub.com/oauth2/token
+          scopes: {}
   responses:
     notfound:
       description: Not Found
@@ -1172,6 +1292,69 @@ components:
                   - type
                   - id
   schemas:
+    roleModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: roles
+          enum:
+            - roles
+        id:
+          type: string
+          example: scheme.owner
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Scheme Owner
+              description: The role name
+            description:
+              type: string
+              example: Ability to manage all aspects of schemes
+              description: A description for the role
+            custom:
+              type: boolean
+              example: false
+              description: Whether the role is custom to an organisation (true) or is a standard system role (false)
+            launch_stage:
+              type: string
+              example: beta
+              description: The launch stage of the role. Alpha = initial testing, Beta = public testing, GA = general availability
+              enum:
+                - alpha
+                - beta
+                - ga
+            permissions:
+              type: array
+              items:
+                type: string
+              example:
+                [
+                  "schemes.create",
+                  "schemes.read",
+                  "schemes.update",
+                  "schemes.delete",
+                ]
+    permissionModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: permissions
+          enum:
+            - permissions
+        id:
+          type: string
+          example: schemes.create
+        attributes:
+          type: object
+          properties:
+            description:
+              type: string
+              example: Ability to create schemes
+              description: A description for the permission
     organisationModel:
       type: object
       properties:
@@ -2209,7 +2392,3 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer

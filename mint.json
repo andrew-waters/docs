@@ -42,7 +42,6 @@
       "group": "Concepts",
       "pages": [
         "concepts/about",
-        "concepts/",
         {
           "group": "Data Capture",
           "pages": [
@@ -67,7 +66,11 @@
     },
     {
       "group": "API Documentation",
-      "pages": ["api-reference/introduction", "api-reference/useful"]
+      "pages": [
+        "api-reference/introduction",
+        "api-reference/useful",
+        "api-reference/auth"
+      ]
     },
     {
       "group": "Governance",
@@ -186,6 +189,32 @@
               "pages": [
                 "api-reference/assets/vehicles/models/model",
                 "api-reference/assets/vehicles/models/get-all"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Admin",
+      "pages": [
+        {
+          "group": "IAM",
+          "pages": [
+            {
+              "group": "Roles",
+              "pages": [
+                "api-reference/admin/iam/roles/model",
+                "api-reference/admin/iam/roles/get-all",
+                "api-reference/admin/iam/roles/get-one"
+              ]
+            },
+            {
+              "group": "Permissions",
+              "pages": [
+                "api-reference/admin/iam/permissions/model",
+                "api-reference/admin/iam/permissions/get-all",
+                "api-reference/admin/iam/permissions/get-one"
               ]
             }
           ]
