@@ -2051,68 +2051,39 @@ components:
                   type: string
                   example: Point
                   description: The type of location
-            meter:
+            mprn:
+              type: number
+              example: 1515151
+              description: The MPRN at the property
+            mpan:
+              type: number
+              example: 5151515
+              description: The MPAN at the property
+            psr:
               type: object
-              description: The meter details of the property
+              description: The PSR details of the property
               properties:
-                mprn:
+                indicator:
+                  type: boolean
+                  example: true
+                  description: Whether the property is on the PSR or not
+                contact:
+                  type: string
+                  description: The contact details of the PSR customer
+                  example: A Person (07970 111 222)
+                priority:
                   type: number
-                  example: 1515151
-                  description: The MPRN for the property
-            occupants:
-              type: array
-              description: The known occupants of the property. Note that occupants refers to individuals, and generally are only available when the property is residential and the occupant has specific PSR needs.
-              items:
-                type: object
-                properties:
-                  first_name:
-                    type: string
-                    example: Mark
-                    description: The first name of the occupant
-                  intials:
-                    type: string
-                    example: ML
-                    description: The intials of the occupant
-                  language:
-                    type: string
-                    example: ENG
-                    description: The language of the occupant
-                  surname:
-                    type: string
-                    example: Lisgo
-                    description: The surname of the occupant
-                  title:
-                    type: string
-                    example: Mr
-                    description: The title of the occupant
-                  vulnerable_customer:
-                    type: object
-                    description: The vulnerable customer details of the occupant
-                    properties:
-                      contact:
-                        type: object
-                        description: Contact details for the vulnerable customer
-                      priority:
-                        type: number
-                        example: 1
-                        description: The priority of the vulnerable customer
-                        enum:
-                          - 1
-                          - 2
-                          - 3
-                      disabilities:
-                        type: array
-                        description: The NeedsCode of the vulnerable customer. To refer to the specific need, please refer to the payload meta which contains a human readable description of the NeedsCode.
-                        items:
-                          type: number
-                          example: 19
-        meta:
-          type: object
-          properties:
-            needs_codes:
-              type: object
-              description: A key value pair of of the NeedsCodes which are associated with the property with the description
-              example: { "19": "Pregnancy/Families with young children < 6" }
+                  example: 1
+                  description: The priority of the vulnerable customer. This is `0` when there is no priority.
+                  enum:
+                    - 0
+                    - 1
+                    - 2
+                    - 3
+                notes:
+                  type: string
+                  example: 14Pensioner
+                  description: Any notes about the vulnerable customer which will potentially include the Needs Codes
     streetModel:
       type: object
       properties:
