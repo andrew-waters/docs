@@ -30,6 +30,10 @@
     {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "SDKs",
+      "url": "sdk"
     }
   ],
   "anchors": [],
@@ -70,6 +74,20 @@
         "api-reference/introduction",
         "api-reference/useful",
         "api-reference/auth"
+      ]
+    },
+    {
+      "group": "SDKs",
+      "pages": [
+        "sdk/introduction",
+        {
+          "group": "TypeScript",
+          "pages": ["sdk/ts/installation", "sdk/ts/usage"]
+        },
+        {
+          "group": "Swift",
+          "pages": ["sdk/swift/installation", "sdk/swift/usage"]
+        }
       ]
     },
     {
@@ -236,6 +254,7 @@
     }
   ],
   "footerSocials": {
-    "linkedin": "https://www.linkedin.com/company/ctrl-hub"
+    "linkedin": "https://www.linkedin.com/company/ctrl-hub",
+    "github": "https://github.com/ctrl-hub"
   }
 }

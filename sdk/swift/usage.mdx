@@ -1,0 +1,39 @@
+---
+title: 'Usage'
+icon: 'square-terminal'
+mode: "wide"
+---
+
+Once installed as a package in your project, you can import the package into each file in your project that needs access to the Ctrl Hub API, using the standard Swift import statement:
+
+```swift
+import CtrlHub
+```
+
+You are now able to start calling the API with an access token.
+
+<Warning>We will add some documentation about the Access Tokens soon</Warning>
+
+## Asking for Resources
+
+The access pattern for calling resources is intended to be consistent. It follows the format `CtrlHub.Resource.Method()`
+
+```swift
+let _ = CtrlHub.Organisations.Get() { response in
+    // handle the response
+}
+```
+
+The `response` should be checked in your code, and we either mark it a success or a fail.
+
+```swift
+let _ = CtrlHub.Organisations.Get() { response in
+    switch response {
+        case .Success(let data):
+            debugPrint(data) // data will be an array of organisations the user has access to
+        case .Fail(let error):
+            print("an error occurred:", error)
+        }
+    }
+}
+```

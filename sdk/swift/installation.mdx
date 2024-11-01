@@ -1,0 +1,43 @@
+---
+title: 'Installation'
+icon: 'code-commit'
+mode: "wide"
+---
+
+[View the source code](https://github.com/ctrl-hub/sdk.swift)
+
+## Installing the Package
+
+Swift offers a variety of ways to install packages. We fully support the [Swift Package Manager](https://www.swift.org/documentation/package-manager/).
+
+You can add the package using the `https://github.com/ctrl-hub/sdk.swift` URL.
+
+## Configuration
+
+Configuration is managed through a `CtrlHubConfig.plist` file, which you should add to the root of your own project:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>authDomain</key>
+    <string>https://auth.ctrl-hub.com</string>
+    <key>apiDomain</key>
+    <string>https://api.ctrl-hub.com</string>
+</dict>
+</plist>
+```
+
+You should then instantiate the config in your own application with the following code:
+
+```swift
+import CtrlHub
+
+// Read the configuration from the CtrlHubConfig.plist in your app bundle:
+if let configuration = CtrlHub.Config() {
+    CtrlHub.config = configuration
+} else {
+    // there are errors in the config file that you should handle
+}
+```
