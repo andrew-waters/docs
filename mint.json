@@ -34,6 +34,10 @@
     {
       "name": "SDKs",
       "url": "sdk"
+    },
+    {
+      "name": "Changelog",
+      "url": "changelog"
     }
   ],
   "anchors": [],
@@ -75,6 +79,10 @@
         "api-reference/useful",
         "api-reference/auth"
       ]
+    },
+    {
+      "group": "Changelog",
+      "pages": ["changelog/v2", "changelog/v3"]
     },
     {
       "group": "SDKs",
