@@ -184,6 +184,12 @@
           "pages": [
             "api-reference/data-capture/form-submissions/model"
           ]
+        },
+        {
+          "group": "Form Submission Versions",
+          "pages": [
+            "api-reference/data-capture/form-submission-versions/model"
+          ]
         }
       ]
     },
