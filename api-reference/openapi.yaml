@@ -2735,3 +2735,102 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    dataCaptureformSubmissionModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: submissions
+          enum:
+            - submissions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: eb2b4aa7-048d-470b-b504-a3eb3bf45e29
+          description: The ID of the form submission
+        attributes:
+          type: object
+          properties:
+            reference:
+              type: string
+              description: The reference of the form submission
+            status:
+              type: string
+              description: The status of the form submission
+              example: complete
+            content:
+              type: object
+              description: The content of the form submission
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the operation was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+            updated_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the operation was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+        relationships:
+          type: object
+          properties:
+            form:
+              type: object
+              description: The id of form this submission relates to
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/dataCaptureFormRelationship"
+            form_version:
+              type: object
+              description: The id of form version this submission relates to
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
+            author:
+              type: object
+              description: The id of user this submission relates to
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/userRelationships"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29
+    dataCaptureFormRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: forms
+          enum:
+            - forms
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: feabf5d3-91b4-42ad-b145-8bee6c115b78
+          description: The ID of the form
+    dataCaptureFormVersionRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: form-versions
+          enum:
+            - forms-versions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 03c37271-70bb-4f03-955d-b4fcbe252a15
+          description: The ID of the form version

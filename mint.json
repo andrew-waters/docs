@@ -178,6 +178,12 @@
             "api-reference/data-capture/form-categories/model",
             "api-reference/data-capture/form-categories/get"
           ]
+        },
+        {
+          "group": "Form Submissions",
+          "pages": [
+            "api-reference/data-capture/form-submissions/model"
+          ]
         }
       ]
     },
