@@ -2735,7 +2735,7 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
-    dataCaptureformSubmissionModel:
+    dataCaptureFormSubmissionModel:
       type: object
       properties:
         type:
