@@ -2755,6 +2755,7 @@ components:
             reference:
               type: string
               description: The reference of the form submission
+              example: 1234A567BCD
             status:
               type: string
               description: The status of the form submission
