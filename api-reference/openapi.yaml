@@ -2777,17 +2777,15 @@ components:
               description: The id of the form version this submission version relates to
               properties:
                 data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
             author:
               type: object
               description: The id of the user this version relates to
               properties:
                 data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/userRelationships"
+                  type: object
+                  $ref: "#/components/schemas/userRelationships"
         links:
           type: object
           properties:
@@ -2838,25 +2836,22 @@ components:
               description: The id of form this submission relates to
               properties:
                 data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/dataCaptureFormRelationship"
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormRelationship"
             form_version:
               type: object
-              description: The id of form version this submission relates to
+              description: The id of the form version this submission version relates to
               properties:
                 data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
             author:
               type: object
               description: The id of user this submission relates to
               properties:
                 data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/userRelationships"
+                  type: object
+                  $ref: "#/components/schemas/userRelationships"
             versions:
               type: object
               description: The id's of versions this submission relates to
