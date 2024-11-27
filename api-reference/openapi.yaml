@@ -2740,38 +2740,41 @@ components:
       properties:
         type:
           type: string
-          example: versions
+          example: submission-versions
           enum:
-            - versions
+            - submission-versions
           description: The resource type
         id:
           type: string
           format: uuid
           example: 7813209e-db7b-4d3d-82a9-73c3c1b10090
-          description: The ID of the form submission version
+          description: The ID of the version
         attributes:
           type: object
           properties:
             status:
               type: string
-              description: The status of the form submission
+              description: The status of the version
               example: complete
             content: 
               type: object
-              description: The content of the submission
+              description: The content of the version
+              example: {
+                field: "value"
+              }
         meta:
           type: object
           properties:
             created_at:
               type: string
               example: 2024-06-13T07:15:23Z
-              description: "**Sortable**. The time the operation was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+              description: "**Sortable**. The time the version was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         relationships:
           type: object
           properties:
             form_version:
               type: object
-              description: The id of form version this submission version relates to
+              description: The id of the form version this submission version relates to
               properties:
                 data:
                   type: array
@@ -2779,7 +2782,7 @@ components:
                     $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
             author:
               type: object
-              description: The id of user this submission version relates to
+              description: The id of the user this version relates to
               properties:
                 data:
                   type: array
@@ -2814,22 +2817,19 @@ components:
               example: 1234A567BCD
             status:
               type: string
-              description: The status of the form submission
+              description: The status of the form submission - this is always the latest status based on the submission versions
               example: complete
-            content:
-              type: object
-              description: The content of the form submission
         meta:
           type: object
           properties:
             created_at:
               type: string
               example: 2024-06-13T07:15:23Z
-              description: "**Sortable**. The time the operation was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+              description: "**Sortable**. The time the form submission was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
             updated_at:
               type: string
               example: 2024-06-13T07:15:23Z
-              description: "**Sortable**. The time the operation was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+              description: "**Sortable**. The time the form submission was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         relationships:
           type: object
           properties:
@@ -2857,6 +2857,14 @@ components:
                   type: array
                   items:
                     $ref: "#/components/schemas/userRelationships"
+            versions:
+              type: object
+              description: The id's of versions this submission relates to
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/dataCaptureSubmissionVersionRelationship"
         links:
           type: object
           properties:
@@ -2884,10 +2892,24 @@ components:
           type: string
           example: form-versions
           enum:
-            - forms-versions
+            - form-versions
           description: The resource type
         id:
           type: string
           format: uuid
           example: 03c37271-70bb-4f03-955d-b4fcbe252a15
           description: The ID of the form version
+    dataCaptureSubmissionVersionRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: submission-versions
+          enum:
+            - submission-versions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: f7bd5f57-8b79-40c5-bb80-acf82b068da0
+          description: The ID of the submission version
