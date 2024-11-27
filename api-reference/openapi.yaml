@@ -2772,6 +2772,20 @@ components:
         relationships:
           type: object
           properties:
+            form:
+              type: object
+              description: The id of the form this version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormRelationship"
+            submission:
+              type: object
+              description: The id of the submission this version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureSubmissionRelationship"
             form_version:
               type: object
               description: The id of the form version this submission version relates to
@@ -2908,3 +2922,17 @@ components:
           format: uuid
           example: f7bd5f57-8b79-40c5-bb80-acf82b068da0
           description: The ID of the submission version
+    dataCaptureSubmissionRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: submissions
+          enum:
+            - submissions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 65f661ff-1ef6-487a-a098-faeba6de3af6
+          description: The ID of the submission
