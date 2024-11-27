@@ -2953,17 +2953,17 @@ components:
           type: string
           format: uuid
           example: eb2b4aa7-048d-470b-b504-a3eb3bf45e29
-          description: The ID of the form submission
+          description: The ID of the submission
         attributes:
           type: object
           properties:
             reference:
               type: string
-              description: The reference of the form submission
+              description: The reference of the submission
               example: 1234A567BCD
             status:
               type: string
-              description: The status of the form submission - this is always the latest status based on the submission versions
+              description: The status of the submission - this is always the latest status based on the submission versions
               example: complete
         meta:
           type: object
@@ -2971,11 +2971,11 @@ components:
             created_at:
               type: string
               example: 2024-06-13T07:15:23Z
-              description: "**Sortable**. The time the form submission was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+              description: "**Sortable**. The time the submission was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
             updated_at:
               type: string
               example: 2024-06-13T07:15:23Z
-              description: "**Sortable**. The time the form submission was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+              description: "**Sortable**. The time the submission was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
         relationships:
           type: object
           properties:
