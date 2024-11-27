@@ -461,6 +461,124 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions":
+    get:
+      description: Returns all submissions for an organisation
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/dataCaptureSubmissionModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions?limit=10&offset=10
+
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions/{submissionId}":
+    get:
+      description: Returns a submission
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/submissionId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/dataCaptureSubmissionModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions/{submissionId}/relationships/versions":
+    get:
+      description: Returns all versions for a submission
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/dataCaptureSubmissionVersionModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions?limit=10&offset=10
+
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions/{submissionId}/relationships/versions/{submissionVersionId}":
+    get:
+      description: Returns a submission
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/submissionVersionId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/dataCaptureSubmissionVersionModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/orgs/{orgId}/governance/schemes":
     get:
       description: Returns all schemes
@@ -1112,6 +1230,22 @@ components:
       schema:
         type: string
         example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
+    submissionId:
+      name: submissionId
+      in: path
+      description: The ID of the submission
+      schema:
+        type: string
+        example: eb2b4aa7-048d-470b-b504-a3eb3bf45e29
+      required: true
+    submissionVersionId:
+      name: submissionVersionId
+      in: path
+      description: The ID of the submission version
+      schema:
+        type: string
+        example: 7813209e-db7b-4d3d-82a9-73c3c1b10090
       required: true
     limit:
       name: limit
@@ -2735,3 +2869,204 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
+    dataCaptureSubmissionVersionModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: submission-versions
+          enum:
+            - submission-versions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 7813209e-db7b-4d3d-82a9-73c3c1b10090
+          description: The ID of the version
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+              description: The status of the version
+              example: complete
+            content: 
+              type: object
+              description: The content of the version
+              example: {
+                field: "value"
+              }
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the version was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+        relationships:
+          type: object
+          properties:
+            form:
+              type: object
+              description: The id of the form this version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormRelationship"
+            form_version:
+              type: object
+              description: The id of the form version this submission version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
+            submission:
+              type: object
+              description: The id of the submission this version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureSubmissionRelationship"
+            author:
+              type: object
+              description: The id of the user this version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/userRelationships"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions/7813209e-db7b-4d3d-82a9-73c3c1b10090
+    dataCaptureSubmissionModel:
+      type: object
+      properties:
+        type:
+          type: string
+          example: submissions
+          enum:
+            - submissions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: eb2b4aa7-048d-470b-b504-a3eb3bf45e29
+          description: The ID of the submission
+        attributes:
+          type: object
+          properties:
+            reference:
+              type: string
+              description: The reference of the submission
+              example: 1234A567BCD
+            status:
+              type: string
+              description: The status of the submission - this is always the latest status based on the submission versions
+              example: complete
+        meta:
+          type: object
+          properties:
+            created_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the submission was created ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+            updated_at:
+              type: string
+              example: 2024-06-13T07:15:23Z
+              description: "**Sortable**. The time the submission was updated ([RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339))"
+        relationships:
+          type: object
+          properties:
+            form:
+              type: object
+              description: The id of form this submission relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormRelationship"
+            form_version:
+              type: object
+              description: The id of the form version this submission version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
+            author:
+              type: object
+              description: The id of user this submission relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/userRelationships"
+            versions:
+              type: object
+              description: The id's of versions this submission relates to
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/dataCaptureSubmissionVersionRelationship"
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29
+    dataCaptureFormRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: forms
+          enum:
+            - forms
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: feabf5d3-91b4-42ad-b145-8bee6c115b78
+          description: The ID of the form
+    dataCaptureFormVersionRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: form-versions
+          enum:
+            - form-versions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 03c37271-70bb-4f03-955d-b4fcbe252a15
+          description: The ID of the form version
+    dataCaptureSubmissionVersionRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: submission-versions
+          enum:
+            - submission-versions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: f7bd5f57-8b79-40c5-bb80-acf82b068da0
+          description: The ID of the submission version
+    dataCaptureSubmissionRelationship:
+      type: object
+      properties:
+        type:
+          type: string
+          example: submissions
+          enum:
+            - submissions
+          description: The resource type
+        id:
+          type: string
+          format: uuid
+          example: 65f661ff-1ef6-487a-a098-faeba6de3af6
+          description: The ID of the submission
