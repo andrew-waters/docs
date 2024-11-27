@@ -182,13 +182,17 @@
         {
           "group": "Form Submissions",
           "pages": [
-            "api-reference/data-capture/form-submissions/model"
+            "api-reference/data-capture/form-submissions/model",
+            "api-reference/data-capture/form-submissions/get-all",
+            "api-reference/data-capture/form-submissions/get-one"
           ]
         },
         {
           "group": "Form Submission Versions",
           "pages": [
-            "api-reference/data-capture/form-submission-versions/model"
+            "api-reference/data-capture/form-submission-versions/model",
+            "api-reference/data-capture/form-submission-versions/get-all",
+            "api-reference/data-capture/form-submission-versions/get-one"
           ]
         }
       ]

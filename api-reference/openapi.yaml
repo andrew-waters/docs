@@ -461,6 +461,124 @@ paths:
           $ref: "#/components/responses/notfound"
         "429":
           $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions":
+    get:
+      description: Returns all submissions for an organisation
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/dataCaptureFormSubmissionModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions?limit=10&offset=10
+
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions/{submissionId}":
+    get:
+      description: Returns a submission
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/submissionId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/dataCaptureFormSubmissionModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions/{submissionId}/relationships/versions":
+    get:
+      description: Returns all versions for a submission
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/sort"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/dataCaptureFormSubmissionVersionModel"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                  links:
+                    type: object
+                    properties:
+                      current:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions?limit=10&offset=20
+                      next:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions?limit=10&offset=30
+                      previous:
+                        type: string
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/data-capture/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions?limit=10&offset=10
+
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
+  "/v3/orgs/{orgId}/data-capture/submissions/{submissionId}/relationships/versions/{submissionVersionId}":
+    get:
+      description: Returns a submission
+      parameters:
+        - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/submissionVersionId"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/dataCaptureFormSubmissionVersionModel"
+        "404":
+          $ref: "#/components/responses/notfound"
+        "429":
+          $ref: "#/components/responses/throttled"
   "/v3/orgs/{orgId}/governance/schemes":
     get:
       description: Returns all schemes
@@ -1112,6 +1230,22 @@ components:
       schema:
         type: string
         example: 5852cf16-8ec8-4aba-809e-f8d828772c4e
+      required: true
+    submissionId:
+      name: submissionId
+      in: path
+      description: The ID of the submission
+      schema:
+        type: string
+        example: eb2b4aa7-048d-470b-b504-a3eb3bf45e29
+      required: true
+    submissionVersionId:
+      name: submissionVersionId
+      in: path
+      description: The ID of the submission version
+      schema:
+        type: string
+        example: 7813209e-db7b-4d3d-82a9-73c3c1b10090
       required: true
     limit:
       name: limit
@@ -2779,13 +2913,6 @@ components:
                 data:
                   type: object
                   $ref: "#/components/schemas/dataCaptureFormRelationship"
-            submission:
-              type: object
-              description: The id of the submission this version relates to
-              properties:
-                data:
-                  type: object
-                  $ref: "#/components/schemas/dataCaptureSubmissionRelationship"
             form_version:
               type: object
               description: The id of the form version this submission version relates to
@@ -2793,6 +2920,13 @@ components:
                 data:
                   type: object
                   $ref: "#/components/schemas/dataCaptureFormVersionRelationship"
+            submission:
+              type: object
+              description: The id of the submission this version relates to
+              properties:
+                data:
+                  type: object
+                  $ref: "#/components/schemas/dataCaptureSubmissionRelationship"
             author:
               type: object
               description: The id of the user this version relates to
