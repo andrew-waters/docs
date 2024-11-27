@@ -480,7 +480,7 @@ paths:
                   data:
                     type: array
                     items:
-                      "$ref": "#/components/schemas/dataCaptureFormSubmissionModel"
+                      "$ref": "#/components/schemas/dataCaptureSubmissionModel"
                   meta:
                     $ref: "#/components/schemas/meta"
                   links:
@@ -515,7 +515,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    "$ref": "#/components/schemas/dataCaptureFormSubmissionModel"
+                    "$ref": "#/components/schemas/dataCaptureSubmissionModel"
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -539,7 +539,7 @@ paths:
                   data:
                     type: array
                     items:
-                      "$ref": "#/components/schemas/dataCaptureFormSubmissionVersionModel"
+                      "$ref": "#/components/schemas/dataCaptureSubmissionVersionModel"
                   meta:
                     $ref: "#/components/schemas/meta"
                   links:
@@ -574,7 +574,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    "$ref": "#/components/schemas/dataCaptureFormSubmissionVersionModel"
+                    "$ref": "#/components/schemas/dataCaptureSubmissionVersionModel"
         "404":
           $ref: "#/components/responses/notfound"
         "429":
@@ -2869,7 +2869,7 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/governance/schemes/5852cf16-8ec8-4aba-809e-f8d828772c4e/work-orders/5852cf16-8ec8-4aba-809e-f8d828772c4e/permits/5852cf16-8ec8-4aba-809e-f8d828772c4e
-    dataCaptureFormSubmissionVersionModel:
+    dataCaptureSubmissionVersionModel:
       type: object
       properties:
         type:
@@ -2940,7 +2940,7 @@ components:
             self:
               type: string
               example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/submissions/eb2b4aa7-048d-470b-b504-a3eb3bf45e29/relationships/versions/7813209e-db7b-4d3d-82a9-73c3c1b10090
-    dataCaptureFormSubmissionModel:
+    dataCaptureSubmissionModel:
       type: object
       properties:
         type:
