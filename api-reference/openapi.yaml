@@ -7,7 +7,7 @@ servers:
 security:
   - oAuth2ClientCredentials: []
 paths:
-  "/v3/admin/iam/permissions":
+  "/v3/iam/permissions":
     get:
       security: []
       description: Returns all permissions
@@ -34,16 +34,16 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/admin/iam/permissions?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/iam/permissions?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/admin/iam/permissions?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/iam/permissions?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/admin/iam/permissions?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/iam/permissions?limit=10&offset=10
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/admin/iam/permissions/{permissionId}":
+  "/v3/iam/permissions/{permissionId}":
     get:
       security: []
       description: Returns all permissions
@@ -63,7 +63,7 @@ paths:
                     "$ref": "#/components/schemas/permissionModel"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/admin/iam/roles":
+  "/v3/iam/roles":
     get:
       security: []
       description: Returns all system roles
@@ -90,16 +90,16 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/admin/iam/roles?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/iam/roles?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/admin/iam/roles?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/iam/roles?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/admin/iam/roles?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/iam/roles?limit=10&offset=10
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/admin/iam/roles/{roleId}":
+  "/v3/iam/roles/{roleId}":
     get:
       security: []
       description: Returns a system role
@@ -211,7 +211,7 @@ paths:
                     "$ref": "#/components/schemas/organisationModel"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/admin/iam/service-accounts":
+  "/v3/orgs/{orgId}/iam/service-accounts":
     get:
       description: Returns all service accounts for an organisation
       parameters:
@@ -237,13 +237,13 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/iam/service-accounts?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/iam/service-accounts?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/iam/service-accounts?limit=10&offset=10
         "429":
           $ref: "#/components/responses/throttled"
     post:
@@ -262,7 +262,7 @@ paths:
                     "$ref": "#/components/schemas/serviceAccountModel"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/admin/iam/service-accounts/{accountId}":
+  "/v3/orgs/{orgId}/iam/service-accounts/{accountId}":
     get:
       description: Returns a service account
       parameters:
@@ -281,7 +281,7 @@ paths:
                     "$ref": "#/components/schemas/serviceAccountModel"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/admin/iam/service-accounts/{accountId}/keys":
+  "/v3/orgs/{orgId}/iam/service-accounts/{accountId}/keys":
     post:
       description: Creates a new key for service account
       requestBody:
@@ -298,7 +298,7 @@ paths:
                     "$ref": "#/components/schemas/serviceAccountKeyCreatedModel"
         "429":
           $ref: "#/components/responses/throttled"
-  "/v3/orgs/{orgId}/admin/iam/service-accounts/{accountId}/logs":
+  "/v3/orgs/{orgId}/iam/service-accounts/{accountId}/logs":
     get:
       description: Get logs for requests that have been made using the service account
       parameters:
@@ -324,13 +324,13 @@ paths:
                     properties:
                       current:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts/logs?limit=10&offset=20
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/iam/service-accounts/logs?limit=10&offset=20
                       next:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts/logs?limit=10&offset=30
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/iam/service-accounts/logs?limit=10&offset=30
                       previous:
                         type: string
-                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/admin/iam/service-accounts/logs?limit=10&offset=10
+                        example: https://api.ctrl-hub.com/v3/orgs/7e0c875a-fd47-401d-bd25-4278ed58d721/iam/service-accounts/logs?limit=10&offset=10
         "429":
           $ref: "#/components/responses/throttled"
   "/v3/orgs/{orgId}/data-capture/forms":
@@ -2890,7 +2890,7 @@ components:
               type: string
               description: The status of the version
               example: complete
-            content: 
+            content:
               type: object
               description: The content of the version
               example: {
