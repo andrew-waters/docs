@@ -1890,30 +1890,57 @@ components:
               type: string
               example: Ctrl Hub deliver best in class software for managing your compliance, safety, risk and resource requirements
               description: A description for the organisation
-            nomenclature:
+            settings:
               type: object
               properties:
-                governance:
+                nomenclature:
                   type: object
                   properties:
-                    schemes:
+                    governance:
                       type: object
                       properties:
-                        "en-GB":
-                          type: string
-                          example: Projects
-                    work-orders:
-                      type: object
-                      properties:
-                        "en-GB":
-                          type: string
-                          example: Sites
-                    operations:
-                      type: object
-                      properties:
-                        "en-GB":
-                          type: string
-                          example: Tasks
+                        schemes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              language:
+                                type: string
+                                example: en-GB
+                              singular:
+                                type: string
+                                example: Scheme
+                              plural:
+                                type: string
+                                example: Schemes
+                        work_orders:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              language:
+                                type: string
+                                example: en-GB
+                              singular:
+                                type: string
+                                example: Work Order
+                              plural:
+                                type: string
+                                example: Work Orders
+                        operations:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              language:
+                                type: string
+                                example: en-GB
+                              singular:
+                                type: string
+                                example: Operation
+                              plural:
+                                type: string
+                                example: Operations
         meta:
           type: object
           properties:
