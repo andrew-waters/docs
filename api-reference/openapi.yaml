@@ -1928,39 +1928,6 @@ components:
                 - active
                 - suspended
               description: "**Sortable**. The current status of the organisation"
-            counts:
-              type: object
-              properties:
-                members:
-                  type: integer
-                  description: a count of members within the organisation - this is dummy data for now
-                projects:
-                  type: integer
-                  description: a count of projects within the organisation - this is dummy data for now
-                risk:
-                  type: object
-                  description: a count of risks
-                  properties:
-                    ok:
-                      type: integer
-                      description: a count of entities which have an "ok" risk status - this is dummy data for now
-                    at_risk:
-                      type: integer
-                      description: a count of entities which have an "at risk" risk status - this is dummy data for now
-                    attention:
-                      type: integer
-                      description: a count of entities which have an "attention" risk status - this is dummy data for now
-        relationships:
-          type: object
-          properties:
-            owners:
-              type: object
-              description: The id of users who are owners of the organisation
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/userRelationships"
         links:
           type: object
           properties:
@@ -2893,9 +2860,7 @@ components:
             content:
               type: object
               description: The content of the version
-              example: {
-                field: "value"
-              }
+              example: { field: "value" }
         meta:
           type: object
           properties:
