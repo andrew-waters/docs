@@ -5,25 +5,64 @@ description: 'Useful information to read before attempting to integrate with the
 
 ### Errors
 
-Error formats
+When calling the API, it is possible that an error may occur. If the status code is `500`, that means that there was an issue on our side. If you receive a message in the `4xx` range, then there was an issue with the request you made.
 
-### Filtering
+If you receive a `500`, there won't be any detail in the response, because it carries the risk of exposing the Ctrl Hub internals. You can, however, capture the headers of the response which will contain an `X-Trace-Id` header which you can forward to us to investigate.
 
-created_at.since
-created_at.until
+We try to be as helpful as possible with the `4xx` errors, so that you can understand what went wrong. The typical scenarios for these errors are conflicting resources or incorrect payloads. Therefore, they are most likely to occur when you are trying to create or update a resource or relationship between resources.
 
-### Pagination
+For example, if you try to create a resource without the required attributes, you will receive a `400` error with a message explaining what went wrong:
 
-Pagination info
+```json
+{
+  "errors": [
+    {
+      "detail": "attributes is required",
+      "meta": {
+        "field": "data",
+        "type": "required",
+        "value": {
+          "type": "equipment-items"
+        }
+      },
+      "status": "400",
+      "title": "The request body is not valid"
+    }
+  ],
+  "jsonapi": {
+    "meta": {},
+    "version": "1.0"
+  },
+  "meta": {}
+}
+```
 
-### Sorting
+This follows the [JSON API specification for errors](https://jsonapi.org/format/#errors), taking advantage of the `meta` field to give you more information about what the specific error is (in this case, a validation error).
 
-Object Model
 
-### Time Formats
 
-RFC 3339
+
+
+
+### Time Format
+
+To ensure consistency and library support, when we have to represent time in the API, or you need to send time to us, we will represent the time using the [RFC 3339](https://tools.ietf.org/html/rfc3339) format. This format is a profile of the ISO 8601 standard, and is widely supported by libraries in many languages.
+
+For example:
+
+```json
+{
+  "data": {
+    ...
+    "meta": {
+      "created_at": "2021-01-01T12:00:00Z"
+    }
+  },
+  ...
+}
+```
+
 
 ### Rate Limiting
 
-Info on throttling
+We do not currently rate limit API requests, but we reserve the right to do so in the future. If we do, we will provide you with the necessary information to understand the limits and how to handle them.

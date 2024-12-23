@@ -1,0 +1,424 @@
+---
+title: 'API Features'
+description: 'When we talk about API features, we are referring to the capabilities of the API rather than the resources themselves. This includes the ability to include, filter, sort, and page through data.'
+---
+
+The json:api specification leaves a lot of room for the implementation detail of these features and you can see some variation between different API's that follow the same specification. Each section below will detail how we have implemented these features in the Ctrl Hub API to be as consistent as possible.
+
+## Document Level Meta
+
+Before we go into each feature, we want to provide you, as the API client, with as much information about the possible features for the endpoint you are calling. This information is provided in the `meta` field of the response, under the `features` key.
+
+Let's consider the following example as we step through the features:
+
+```bash
+curl "https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment" \
+     -H 'Authorization: Bearer ***** Hidden credentials *****'
+```
+
+Returns:
+
+```json
+{
+  "data": [
+    ...
+  ],
+  "meta": {
+    "features": {
+      "params": {
+        "filter": {
+          "options": [
+            "serial",
+            "created_at.since",
+            "created_at.until"
+          ]
+        },
+        "include": {
+          "options": [
+            "model",
+            "model.manufacturer",
+            "model.categories",
+            "vehicle",
+            "vehicle.equipment",
+          ]
+        },
+        "sort": {
+          "options": [
+            "serial",
+            "created_at",
+            "modified_at"
+          ]
+        }
+      }
+    }
+  },
+  ...
+}
+```
+
+The `meta.features` object provides you with the possible query parameters you can use for the endpoint.
+
+The `meta.features.params` key indicates that these are query parameters.
+
+For each param, the available feature is the key and within each one, the `options` key provides you with the possible field names that you can use.
+
+We'll go through each param now.
+
+## Sorting
+
+When returning a collection of resources, we can sort the results based on a field. In our example, we can see that we could choose to filter on the `serial`, `created_at` or `modified_at` fields.
+
+To do so, you can add the `sort` query parameter to the request:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?sort=serial`
+
+If you would like to reverse the order, you can add a `-` to the field name:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?sort=-serial`
+
+
+<Note>
+    When specifying multiple sort fields, the API will only sort by the first field. Whilst it is possible to send a request that has `?sort=serial,created_at` and for the API to return a response, the API will only sort by the first field, so the request is the equivalent of `?sort=serial`.
+
+    We may change this behaviour in the future, so it is recommended to only specify one sort field for now.
+</Note>
+
+
+## Filtering
+
+In our example above, you can see that the `filter` feature is available for the endpoint.
+
+You can therefore change the request to filter the equipment items by serial number:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?filter[serial]=ABC123`
+
+This performs an _exact_ match on the serial number, so you will only get the equipment item with the serial number `ABC123`, albeit in an array within the document `data`. That is because the serial is unique. If we were filtering on a non unique field, such as `status`, you would get an array of all the resources that match the filter.
+
+<Note>
+    The equality check is the only one supported for now. If we see a need for more operators, we will add them in the future and update the changelog and this documentation. The implementation will be made in a backwards compatible way.
+</Note>
+
+It is also possible to chain filters, for example the following request wil lalso filter on the status:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?filter[serial]=ABC123&filter[status]=active`
+
+When chaining filters, the filters are treated as an `AND` operator. Therfore, this will return resources where **BOTH** the serial number is `ABC123` and the status is `active`.
+
+<Note>
+    Like the equality check, if we implement support for other more advanced use cases (or simple ones such as `OR`), we will add them in the future and update the changelog and this documentation. The implementation will be made in a backwards compatible way.
+</Note>
+
+
+### Time Filters
+
+When you need to filter on a field that represents time, we have implemented them in a way that is consistent across the API. The time filters are always in the format `field.since` and `field.until`. This allows you to filter resources based on more advanced use cases.
+
+For example, to filter equipment items created since a certain date:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?filter[created_at.since]=2025-01-01T00:00:00Z`
+
+This will return all equipment items created since the 1st of January 2025 until now.
+
+You could also filter on resources created until a certain date:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?filter[created_at.until]=2025-01-31T23:59:59Z`
+
+This will return all equipment items created up to the 31st of January 2025 since the beginning of time.
+
+You can also filter on a range of dates (windows):
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?filter[created_at.since]=2025-01-01T00:00:00Z&filter[created_at.until]=2025-01-31T23:59:59Z`
+
+This will return all equipment items created between the 1st and 31st of January 2025.
+
+
+### Geospatial Filtering
+
+Geospacial filters are also supported in the API. The filters are in the format `field.box.bottom_left` and  `field.box.top_right`. This allows you to filter resources based on their location.
+
+When using geospatial filters, you need to include both the bottom left and top right corners of the box you want to filter on. This is because the filter is a [bounding box](https://wiki.openstreetmap.org/wiki/Bounding_box), and the API will return all resources that are within that box.
+
+For example, to filter for properties within a certain area:
+
+`https://api.ctrl-hub.com/v3/governance/properties?filter[location.box.bottom_left]=51.5074,-0.1278&filter[location.box.top_right]=51.5084,-0.1288`
+
+
+## Including Data
+
+Requesting data to include is one of the most powerful features of the API. It allows you to request related resources in the same request, reducing the number of requests you need to make to get the data you need.
+
+GraphQL has a similar feature set, but the JSONAPI specification is more easily accessible and means you can avoid the complexity of GraphQL and it's learning curve.
+
+Within JSONAPI, relationships are represented in each resource. Let's consider our Equipment Item. The item is a piece of equipment, and we support that equipment being associated with a vehicle so we know where it should be and from the vehicle, we know who is responsible for it (the vehicle has a relationship back to a user).
+
+Our Equipment Item resource would look like this, where it is on the vehicle `bb2e225f-02f0-489a-9494-51d2c3efae04` and is of the equipment model `9b197c72-2b7d-45b6-8a1a-3fa2ebc78fca`:
+
+
+```json
+{
+  "data": {
+    "type": "equipment-items",
+    "id": "eea6e732-82be-4194-b722-15408710c4a2",
+    "attributes": {
+      "serial": "ABC123",
+      "status": "active",
+      ...
+    },
+    "relationships": {
+      "vehicle": {
+        "data": {
+          "type": "vehicles",
+          "id": "bb2e225f-02f0-489a-9494-51d2c3efae04"
+        }
+      },
+      "model": {
+        "data": {
+          "type": "equipment-models",
+          "id": "9b197c72-2b7d-45b6-8a1a-3fa2ebc78fca"
+        }
+      },
+      ...
+    }
+  }
+}
+```
+
+If you wanted to include the vehicle and the model in the response, you would add the `include` query parameter to the request:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment/eea6e732-82be-4194-b722-15408710c4a2?include=vehicle`
+
+Which would return:
+
+```json {26-50}
+{
+  "data": {
+    "type": "equipment-items",
+    "id": "eea6e732-82be-4194-b722-15408710c4a2",
+    "attributes": {
+      "serial": "ABC123",
+      "status": "active",
+      ...
+    },
+    "relationships": {
+      "vehicle": {
+        "data": {
+          "type": "vehicles",
+          "id": "bb2e225f-02f0-489a-9494-51d2c3efae04"
+        }
+      },
+      "model": {
+        "data": {
+          "type": "equipment-models",
+          "id": "9b197c72-2b7d-45b6-8a1a-3fa2ebc78fca"
+        }
+      },
+      ...
+    }
+  },
+  "included": [
+    {
+      "type": "vehicles",
+      "id": "bb2e225f-02f0-489a-9494-51d2c3efae04",
+      "attributes": {
+        "registration": "YO22 OLO",
+        ...
+      },
+      "relationships": {
+        "specification": {
+          "data": {
+            "type": "vehicle-specifications",
+            "id": "3faab063-11d3-41b5-8b9a-44e083791fd9"
+          }
+        },
+        "user": {
+          "data": {
+            "type": "users",
+            "id": "60ecb55c-93fb-41ee-92b5-fab6544d0686"
+          }
+        },
+        ...
+      }
+    }
+  ]
+}
+```
+
+You now have the vehicle included in the response, and you can see that the vehicle has a relationship to a vehicle specification and a user.
+
+To get the user, we could request to include the user in the response:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment/eea6e732-82be-4194-b722-15408710c4a2?include=vehicle,vehicle.user`
+
+Which would return:
+
+```json {41-42,48-54}
+{
+  "data": {
+    "type": "equipment-items",
+    "id": "eea6e732-82be-4194-b722-15408710c4a2",
+    "attributes": {
+      "serial": "ABC123",
+      "status": "active",
+      ...
+    },
+    "relationships": {
+      "vehicle": {
+        "data": {
+          "type": "vehicles",
+          "id": "bb2e225f-02f0-489a-9494-51d2c3efae04"
+        }
+      },
+      "model": {
+        "data": {
+          "type": "equipment-models",
+          "id": "9b197c72-2b7d-45b6-8a1a-3fa2ebc78fca"
+        }
+      }
+    }
+  },
+  "included": [
+    {
+      "type": "vehicles",
+      "id": "bb2e225f-02f0-489a-9494-51d2c3efae04",
+      "attributes": {
+        "registration": "YO22 OLO",
+        ...
+      },
+      "relationships": {
+        "specification": {
+          "data": {
+            "type": "vehicle-specifications",
+            "id": "3faab063-11d3-41b5-8b9a-44e083791fd9"
+          }
+          "user": {
+            "data": {
+              "type": "users",
+              "id": "60ecb55c-93fb-41ee-92b5-fab6544d0686"
+            }
+          },
+        }
+      }
+    },
+    {
+      "type": "users",
+      "id": "60ecb55c-93fb-41ee-92b5-fab6544d0686",
+      "attributes": {
+        "email": "alice@example.com",
+        ...
+      }
+    }
+  ]
+}
+```
+
+We can go a step further and include the vehicle specification in the response:
+
+`https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment/eea6e732-82be-4194-b722-15408710c4a2?include=vehicle,vehicle.user,vehicle.specification`
+
+This will return the vehicle specification in the `included` array of the response:
+
+```json {36-37,50-65}
+{
+  "data": {
+    "type": "equipment-items",
+    "id": "eea6e732-82be-4194-b722-15408710c4a2",
+    "attributes": {
+      "serial": "ABC123",
+      "status": "active",
+      ...
+    },
+    "relationships": {
+      "vehicle": {
+        "data": {
+          "type": "vehicles",
+          "id": "bb2e225f-02f0-489a-9494-51d2c3efae04"
+        }
+      },
+      "model": {
+        "data": {
+          "type": "equipment-models",
+          "id": "9b197c72-2b7d-45b6-8a1a-3fa2ebc78fca"
+        }
+      }
+    }
+  },
+  "included": [
+    {
+      "type": "vehicles",
+      "id": "bb2e225f-02f0-489a-9494-51d2c3efae04",
+      "attributes": {
+        "registration": "YO22 OLO",
+        ...
+      },
+      "relationships": {
+        "specification": {
+          "data": {
+            "type": "vehicle-specifications",
+            "id": "3faab063-11d3-41b5-8b9a-44e083791fd9"
+          }
+        }
+      }
+    },
+    {
+      "type": "users",
+      "id": "60ecb55c-93fb-41ee-92b5-fab6544d0686",
+      "attributes": {
+        "email": "alice@example.com",
+        ...
+      }
+    },
+    {
+      "type": "vehicle-specifications",
+      "id": "3faab063-11d3-41b5-8b9a-44e083791fd9",
+      "attributes": {
+        "emissions": 125.7,
+        ...
+      },
+      "relationships": {
+        "model": {
+          "data": {
+            "type": "vehicle-models",
+            "id": "7bf8d690-1874-4e85-94b9-cffcabfafb34"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+You could even include the vehicle model in the response with:
+
+`?include=vehicle,vehicle.specification,vehicle.specification.model`
+
+And then include the manufacturer of the vehicle with:
+
+`?include=vehicle,vehicle.specification,vehicle.specification.model,vehicle.specification.model.manufacturer`
+
+An you could include the vehicle categories with:
+
+`?include=vehicle,vehicle.specification,vehicle.specification.model,vehicle.specification.model.manufacturer,vehicle.specification.model.categories`
+
+### Some Considerations
+
+As you include more resources, three things will happen:
+
+1. The response will get larger, as you are including more data. This means there is more data to transfer over the wire, and more data for you to process.
+2. The response will get more complex, as you are including more relationships. This means you will have to navigate the response to get the data you need.
+3. The response will get slower, as you are including more data. This means the response time will increase as you include more data.
+
+Therefore, you should only include the data you need, and not include data that you don't need. This will keep the response size down, the response time down, and the complexity of the integration down.
+
+<Note>
+    We would strongly encourage you to use an SDK or library that can handle the complexity of the response for you, as it will make your life much easier. For officially supported SDKs, please refer to the [SDKs](/sdk) section of the documentation.
+</Note>
+
+## Pagination
+
+Pagination is still under consideration as we intend to support both offsets and cursors. We will update this documentation when we have made a decision and implemented the feature.
+
+For offset based pagination, you can use the `limit` and `offset` query parameters:
+
+```bash
+curl "https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?limit=10&offset=0"
+```
