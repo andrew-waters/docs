@@ -415,10 +415,58 @@ Therefore, you should only include the data you need, and not include data that 
 
 ## Pagination
 
-Pagination is still under consideration as we intend to support both offsets and cursors. We will update this documentation when we have made a decision and implemented the feature.
+When requesting a collection of resources, we adopt the `limit` / `offset` approach.
 
-For offset based pagination, you can use the `limit` and `offset` query parameters:
+`limit` restricts the number of resources returned in the `data` of the response. If you request includes, this limit does not apply to the included data.
+
+`offset` is the number of resources to skip before returning the resources.
+
+For example, to get the first 10 equipment items:
 
 ```bash
 curl "https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?limit=10&offset=0"
 ```
+
+To get the next 10 equipment items:
+
+```bash
+curl "https://api.ctrl-hub.com/v3/orgs/{orgId}/assets/equipment?limit=10&offset=10"
+```
+
+When requesting a collection of resources from the API, we will also add some meta data to the response to help you with pagination. This will be in the `meta` field of the response, under the `pagination` key:
+
+```json
+{
+  ...
+  "meta": {
+    ...
+    "pagination": {
+      "current_page": 3,
+      "counts": {
+        "pages": 9,
+        "resources": 99
+      },
+      "requested": {
+        "limit": 10,
+        "offset": 20
+      },
+      "offsets": {
+        "previous": 10,
+        "next": 30
+      }
+    }
+  }
+}
+```
+
+This can be useful for building up a pagination component in your application, or for iterating through the pages of data. The `counts` key provides you with the total number of pages and resources, and the `requested` key provides you with the limit and offset you requested.
+
+`meta.pagination.offsets.previous` and `meta.pagination.offsets.next` provide you with the offset for the previous and next pages respectively. If you are on the first page, `previous` will be a `null` value. If you are on the last page, `next` will be a `null` value.
+
+<Info>
+    If you request a page that is out of bounds, the API will return a `200` status code and an empty `data` array. If you are iterating though pages, you should check the `data` array to see if it is empty, and if it is, you should stop iterating.
+</Info>
+
+<Note>
+    We may support cursors in the future, reach out if this is something you would like to see.
+</Note>
